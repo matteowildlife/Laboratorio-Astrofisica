@@ -10,64 +10,29 @@
     
     <style>
         /* TEMA BASE GTA/SCI-FI */
-        body { 
-            background-color: #0b0f19; 
-            color: #e2e8f0; 
-            font-family: 'Share Tech Mono', monospace; 
-            overflow-x: hidden;
-        }
+        body { background-color: #0b0f19; color: #e2e8f0; font-family: 'Share Tech Mono', monospace; overflow-x: hidden; }
         h1, h2, h3, .font-gta { font-family: 'Teko', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
         
-        .panel-gta {
-            background: rgba(15, 23, 42, 0.90);
-            border: 3px solid #facc15; 
-            border-radius: 8px;
-            box-shadow: 8px 8px 0px rgba(0,0,0,0.8);
-            backdrop-filter: blur(4px);
-        }
-
-        .btn-gta {
-            background: #facc15;
-            color: #000;
-            border: 2px solid #000;
-            font-family: 'Teko', sans-serif;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            box-shadow: 4px 4px 0px #000;
-            transition: all 0.1s;
-            cursor: pointer;
-        }
+        .panel-gta { background: rgba(15, 23, 42, 0.90); border: 3px solid #facc15; border-radius: 8px; box-shadow: 8px 8px 0px rgba(0,0,0,0.8); backdrop-filter: blur(4px); }
+        .btn-gta { background: #facc15; color: #000; border: 2px solid #000; font-family: 'Teko', sans-serif; font-size: 1.5rem; text-transform: uppercase; box-shadow: 4px 4px 0px #000; transition: all 0.1s; cursor: pointer; }
         .btn-gta:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px #000; }
         .btn-gta:disabled { background: #475569; color: #94a3b8; border-color: #1e293b; box-shadow: none; transform: none; cursor: not-allowed; }
 
         /* SOVRASCRITTURE ACCESSIBILITÀ */
-        body.dyslexia-font, body.dyslexia-font * {
-            font-family: 'Lexend', 'OpenDyslexic', system-ui, sans-serif !important;
-            letter-spacing: 0.05em !important;
-            line-height: 1.6 !important;
-        }
+        body.dyslexia-font, body.dyslexia-font * { font-family: 'Lexend', 'OpenDyslexic', system-ui, sans-serif !important; letter-spacing: 0.05em !important; line-height: 1.6 !important; }
         body.high-contrast { background: #000 !important; }
         body.high-contrast .panel-gta { background: #000 !important; border-color: #ff0 !important; box-shadow: none !important; }
         body.high-contrast .text-yellow-500, body.high-contrast .text-yellow-400 { color: #ff0 !important; }
 
-        /* MOTORE GRAFICO RADAR */
-        .radar-screen {
-            position: relative; width: 100%; aspect-ratio: 1 / 1;
-            background: radial-gradient(circle, #022c22 0%, #020617 100%);
-            border: 4px solid #10b981; border-radius: 50%; overflow: hidden;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4) inset;
-        }
-        .radar-scan {
-            position: absolute; top: 50%; left: 50%; width: 50%; height: 50%;
-            background: linear-gradient(45deg, rgba(16,185,129,0) 40%, rgba(16,185,129,0.8) 100%);
-            transform-origin: top left; animation: radarSpin 4s linear infinite; z-index: 10; pointer-events: none;
-        }
+        /* MOTORE GRAFICO RADAR (FASE 2) */
+        .radar-screen { position: relative; width: 100%; aspect-ratio: 1 / 1; background: radial-gradient(circle, #022c22 0%, #020617 100%); border: 4px solid #10b981; border-radius: 50%; overflow: hidden; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4) inset; }
+        .radar-scan { position: absolute; top: 50%; left: 50%; width: 50%; height: 50%; background: linear-gradient(45deg, rgba(16,185,129,0) 40%, rgba(16,185,129,0.8) 100%); transform-origin: top left; animation: radarSpin 4s linear infinite; z-index: 10; pointer-events: none; }
         .celestial { position: absolute; border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 10px currentColor; z-index: 20; }
         .sun { width: 14px; height: 14px; background: #fbbf24; color: #fbbf24; }
         .earth { width: 10px; height: 10px; background: #3b82f6; color: #3b82f6; }
         .planet-red { width: 8px; height: 8px; background: #ef4444; color: #ef4444; }
         .planet-purple { width: 8px; height: 8px; background: #a855f7; color: #a855f7; }
-        .orbit { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px dashed rgba(16, 185, 129, 0.3); border-radius: 50%; }
+        .orbit { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px dashed rgba(16, 185, 129, 0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s; }
         
         .spin-slow { animation: spin 10s linear infinite; }
         .spin-med { animation: spin 6s linear infinite; }
@@ -75,15 +40,37 @@
         @keyframes spin { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
         @keyframes radarSpin { 100% { transform: rotate(360deg); } }
         
-        /* SLIDER FASE 3 */
-        .frost-slider {
-            -webkit-appearance: none; width: 100%; height: 12px; background: #1e293b; border-radius: 6px; outline: none; border: 1px solid #475569;
-        }
-        .frost-slider::-webkit-slider-thumb {
-            -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #60a5fa; border: 2px solid #fff; cursor: pointer; box-shadow: 0 0 10px #60a5fa;
-        }
+        /* MOTORE GRAFICO TERMODINAMICA (FASE 3 TOP-DOWN) */
+        .termo-arena { position: relative; width: 100%; aspect-ratio: 1 / 1; background: radial-gradient(circle, #2e1005 0%, #000000 100%); border: 2px solid #334155; border-radius: 50%; overflow: hidden; }
+        .termo-sun { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background: radial-gradient(circle, #fcd34d 0%, #ea580c 100%); border-radius: 50%; box-shadow: 0 0 40px #ea580c; z-index: 30; }
+        .termo-orbit { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px dashed rgba(255,255,255,0.1); border-radius: 50%; cursor: pointer; transition: border-color 0.3s; z-index: 10; }
+        .termo-orbit:hover { border-color: #facc15; background: rgba(250, 204, 21, 0.05); }
+        .termo-frost-line { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 3px solid rgba(56, 189, 248, 0.6); border-radius: 50%; pointer-events: none; box-shadow: 0 0 15px rgba(56, 189, 248, 0.4) inset, 0 0 15px rgba(56, 189, 248, 0.4); z-index: 15; transition: width 0.3s, height 0.3s; }
+        
+        /* Pianeti FASE 3 */
+        .roster-planet { cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+        .roster-planet.selected { border-color: #facc15; transform: scale(1.05); box-shadow: 0 0 15px rgba(250,204,21,0.5); }
+        
+        .p-roccia { background: radial-gradient(circle, #78716c 0%, #44403c 100%); }
+        .p-gas { background: radial-gradient(circle, #93c5fd 0%, #3b82f6 100%); }
+        .p-ice { background: radial-gradient(circle, #cffafe 0%, #06b6d4 100%); }
 
-        /* EFFETTO TYPEWRITER (Cursore lampeggiante) */
+        @keyframes evaporate {
+            0% { transform: scale(1); opacity: 1; filter: brightness(1); }
+            50% { transform: scale(2); opacity: 0.8; filter: brightness(2) sepia(1) hue-rotate(-50deg); }
+            100% { transform: scale(3); opacity: 0; filter: brightness(3); }
+        }
+        .anim-evaporate { animation: evaporate 1s forwards; }
+
+        /* PAPER ACCADEMICO (FASE 4) */
+        .academic-paper { background: #fafafa; color: #111; font-family: 'Times New Roman', Times, serif; box-shadow: 0 0 20px rgba(0,0,0,0.5); border-radius: 2px; }
+        .paper-title { font-family: 'Times New Roman', Times, serif; font-weight: bold; text-align: center; }
+        .stamp-btn { font-family: 'Share Tech Mono', monospace; font-weight: bold; text-transform: uppercase; border: 2px solid; padding: 4px 8px; border-radius: 4px; transition: all 0.2s; }
+        .stamp-approva { color: #16a34a; border-color: #16a34a; }
+        .stamp-approva:hover, .stamp-approva.active { background: #16a34a; color: white; transform: rotate(-3deg); }
+        .stamp-boccia { color: #dc2626; border-color: #dc2626; }
+        .stamp-boccia:hover, .stamp-boccia.active { background: #dc2626; color: white; transform: rotate(3deg); }
+
         .cursor-blink::after { content: '█'; animation: blink 1s step-start infinite; color: #facc15; margin-left: 4px; }
         @keyframes blink { 50% { opacity: 0; } }
     </style>
@@ -100,11 +87,10 @@
         </div>
     </header>
 
-    <!-- SCHERMATA 0: LOGIN E ONBOARDING -->
+    <!-- FASE 0: LOGIN (INVARIATA) -->
     <main id="fase-0" class="w-full max-w-xl panel-gta p-6 z-10">
         <h2 class="text-4xl text-white font-gta mb-2">IDENTIFICAZIONE RICERCATORE</h2>
-        <p class="text-sm text-slate-300 mb-6 border-b border-slate-700 pb-4">Inserisci le tue credenziali per accedere al database astronomico e avviare il modulo di simulazione.</p>
-        
+        <p class="text-sm text-slate-300 mb-6 border-b border-slate-700 pb-4">Inserisci le tue credenziali per accedere al database astronomico.</p>
         <div class="space-y-4 mb-6">
             <div>
                 <label class="block text-sm font-bold text-yellow-500 mb-1 font-gta text-xl">NOME E COGNOME:</label>
@@ -115,446 +101,414 @@
                 <input type="text" id="input-class" placeholder="Es. 1A" class="w-full bg-slate-900 border-2 border-slate-600 p-2 text-white focus:outline-none focus:border-yellow-500 font-bold uppercase">
             </div>
         </div>
-
         <div class="bg-slate-900 border border-slate-700 p-4 mb-6 rounded">
-            <h3 class="text-lg font-gta text-white mb-2">⚙️ IMPOSTAZIONI TERMINALE</h3>
+            <h3 class="text-lg font-gta text-white mb-2">⚙️ IMPOSTAZIONI</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <button type="button" onclick="toggleDSA()" class="bg-slate-800 border border-slate-600 p-2 text-xs text-slate-300 hover:bg-slate-700">
-                    Font Alta Leggibilità: <span id="lbl-dsa" class="text-red-400 font-bold">OFF</span>
-                </button>
-                <button type="button" onclick="toggleContrast()" class="bg-slate-800 border border-slate-600 p-2 text-xs text-slate-300 hover:bg-slate-700">
-                    Alto Contrasto: <span id="lbl-contrast" class="text-red-400 font-bold">OFF</span>
-                </button>
+                <button type="button" onclick="toggleDSA()" class="bg-slate-800 border border-slate-600 p-2 text-xs text-slate-300 hover:bg-slate-700">Font Alta Leggibilità: <span id="lbl-dsa" class="text-red-400 font-bold">OFF</span></button>
+                <button type="button" onclick="toggleContrast()" class="bg-slate-800 border border-slate-600 p-2 text-xs text-slate-300 hover:bg-slate-700">Alto Contrasto: <span id="lbl-contrast" class="text-red-400 font-bold">OFF</span></button>
             </div>
         </div>
-
         <button type="button" onclick="effettuaLogin()" class="btn-gta w-full py-2">AUTENTICATI →</button>
     </main>
 
-    <!-- FASE 1: L'ACCOGLIENZA (AUDIO + FAX) -->
+    <!-- FASE 1: ACCOGLIENZA (INVARIATA) -->
     <main id="fase-1" class="hidden w-full max-w-5xl panel-gta p-4 md:p-6 mb-8 flex-col md:flex-row gap-6 z-10">
         <div class="w-full md:w-1/2 flex flex-col">
-            <!-- Immagine Statica Direttrice -->
             <div class="border-4 border-slate-900 rounded-lg overflow-hidden bg-black aspect-video relative shadow-inner">
                 <img src="direttrice.jpg" alt="Direttrice ALMA" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80'">
-                <!-- Etichetta sovrapposta -->
-                <div class="absolute bottom-2 left-2 text-xs text-yellow-400 font-bold bg-slate-900/90 p-1 px-2 border border-slate-700">
-                    🎙️ IN TRASMISSIONE...
-                </div>
+                <div class="absolute bottom-2 left-2 text-xs text-yellow-400 font-bold bg-slate-900/90 p-1 px-2 border border-slate-700">🎙️ IN TRASMISSIONE...</div>
             </div>
-            
-            <!-- Audio nascosto -->
-            <audio id="audio-direttrice">
-                <source src="direttrice.mp3" type="audio/mpeg">
-            </audio>
-            
+            <audio id="audio-direttrice"><source src="direttrice.mp3" type="audio/mpeg"></audio>
             <button id="btn-ricevi" type="button" onclick="avviaTrasmissione()" class="mt-4 btn-gta py-2 bg-blue-500 border-blue-900 text-white w-full">RICEVI TRASMISSIONE 🔊</button>
         </div>
-
         <div class="w-full md:w-1/2 flex flex-col justify-between">
             <div>
                 <h2 class="text-4xl text-yellow-500 font-gta mb-2">BENVENUTI RECLUTE</h2>
-                <!-- Contenitore Typewriter -->
                 <div class="text-sm text-green-400 font-bold leading-relaxed bg-slate-950 p-4 rounded border-2 border-slate-700 h-64 overflow-y-auto shadow-inner">
-                    <div id="testo-battuto" class="cursor-blink">Connessione in attesa... Clicca "Ricevi Trasmissione" per ascoltare la Direttrice.</div>
+                    <div id="testo-battuto" class="cursor-blink">Connessione in attesa... Clicca "Ricevi Trasmissione".</div>
                 </div>
             </div>
             <button id="btn-vai-fase2" type="button" onclick="avviaFase2()" class="btn-gta w-full py-2 mt-4 rounded opacity-50 cursor-not-allowed" disabled>ACCEDI ALLA SALA RADAR →</button>
         </div>
     </main>
 
-    <!-- FASE 2: I RADAR GEOMETRICI -->
+    <!-- FASE 2: RADAR (INVARIATA, minimizzata per spazio) -->
     <main id="fase-2" class="hidden w-full max-w-6xl panel-gta p-4 md:p-6 mb-8 z-10">
         <div class="mb-6 border-b border-slate-700 pb-4">
             <h2 class="text-4xl text-yellow-500 font-gta">SALA CALIBRAZIONE OTTICA</h2>
-            <p class="text-sm text-slate-300">Le sonde hanno tracciato le orbite di tre sistemi stellari. Osserva attentamente le dinamiche e decifra quale modello geometrico governa ciascun sistema per sbloccare l'accesso.</p>
-            
-            <!-- LEGENDA VISIVA -->
-            <div class="mt-4 inline-flex flex-wrap gap-4 bg-slate-900 p-2 px-4 rounded border border-slate-600 text-xs font-bold text-white items-center">
-                <span class="text-slate-400">LEGENDA RADAR:</span>
-                <span class="flex items-center gap-2"><div class="w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_5px_#3b82f6]"></div> L'Osservatore (Terra)</span>
-                <span class="flex items-center gap-2"><div class="w-3 h-3 bg-yellow-400 rounded-full shadow-[0_0_5px_#facc15]"></div> La Stella (Sole)</span>
-                <span class="flex items-center gap-2"><div class="w-3 h-3 bg-red-500 rounded-full shadow-[0_0_5px_#ef4444]"></div> Pianeta Osservato</span>
-            </div>
+            <p class="text-sm text-slate-300">Decifra quale modello geometrico governa ciascun sistema.</p>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <!-- ALFA -->
             <div class="flex flex-col items-center">
-                <h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA ALFA 📡</h3>
-                <div class="radar-screen mb-4">
-                    <div class="radar-scan"></div>
-                    <div class="celestial earth top-[50%] left-[50%]"></div>
-                    <div class="orbit w-[70%] h-[70%] spin-slow">
-                        <div class="celestial sun top-0 left-[50%]">
-                            <div class="orbit w-[60px] h-[60px] spin-fast">
-                                <div class="celestial planet-red top-0 left-[50%]"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <select id="sel-alfa" class="w-full bg-slate-900 border-2 border-slate-600 text-white p-2 focus:border-yellow-500 font-bold">
-                    <option value="">[ CLASSIFICA MODELLO ]</option>
-                    <option value="Copernico">Modello Eliocentrico (Copernico)</option>
-                    <option value="Tolomeo">Modello Geocentrico (Tolomeo)</option>
-                    <option value="Brahe">Modello Ibrido (Brahe)</option>
-                </select>
+                <h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA ALFA (Brahe)</h3>
+                <div class="radar-screen mb-4"><div class="radar-scan"></div><div class="celestial earth top-[50%] left-[50%]"></div><div class="orbit w-[70%] h-[70%] spin-slow"><div class="celestial sun top-0 left-[50%]"><div class="orbit w-[60px] h-[60px] spin-fast"><div class="celestial planet-red top-0 left-[50%]"></div></div></div></div></div>
+                <select id="sel-alfa" class="w-full bg-slate-900 border-2 border-slate-600 text-white p-2 focus:border-yellow-500 font-bold"><option value="">[ CLASSIFICA ]</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option></select>
             </div>
-
             <!-- BETA -->
             <div class="flex flex-col items-center">
-                <h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA BETA 📡</h3>
-                <div class="radar-screen mb-4">
-                    <div class="radar-scan"></div>
-                    <div class="celestial earth top-[50%] left-[50%]"></div>
-                    <div class="orbit w-[85%] h-[85%] spin-slow">
-                        <div class="celestial sun top-0 left-[50%]"></div>
-                    </div>
-                    <div class="orbit w-[40%] h-[40%] spin-slow">
-                        <div class="orbit w-[40px] h-[40px] spin-fast" style="top: 0; left: 50%; border: 1px solid rgba(255,0,0,0.5);">
-                            <div class="celestial planet-purple top-0 left-[50%]"></div>
-                        </div>
-                    </div>
-                </div>
-                <select id="sel-beta" class="w-full bg-slate-900 border-2 border-slate-600 text-white p-2 focus:border-yellow-500 font-bold">
-                    <option value="">[ CLASSIFICA MODELLO ]</option>
-                    <option value="Copernico">Modello Eliocentrico (Copernico)</option>
-                    <option value="Tolomeo">Modello Geocentrico (Tolomeo)</option>
-                    <option value="Brahe">Modello Ibrido (Brahe)</option>
-                </select>
+                <h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA BETA (Tolomeo)</h3>
+                <div class="radar-screen mb-4"><div class="radar-scan"></div><div class="celestial earth top-[50%] left-[50%]"></div><div class="orbit w-[85%] h-[85%] spin-slow"><div class="celestial sun top-0 left-[50%]"></div></div><div class="orbit w-[40%] h-[40%] spin-slow"><div class="orbit w-[40px] h-[40px] spin-fast" style="top: 0; left: 50%; border: 1px solid rgba(255,0,0,0.5);"><div class="celestial planet-purple top-0 left-[50%]"></div></div></div></div>
+                <select id="sel-beta" class="w-full bg-slate-900 border-2 border-slate-600 text-white p-2 focus:border-yellow-500 font-bold"><option value="">[ CLASSIFICA ]</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option></select>
             </div>
-
             <!-- GAMMA -->
             <div class="flex flex-col items-center">
-                <h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA GAMMA 📡</h3>
-                <div class="radar-screen mb-4">
-                    <div class="radar-scan"></div>
-                    <div class="celestial sun top-[50%] left-[50%]"></div>
-                    <div class="orbit w-[40%] h-[40%] spin-fast">
-                        <div class="celestial earth top-0 left-[50%]"></div>
-                    </div>
-                    <div class="orbit w-[75%] h-[75%] spin-slow">
-                        <div class="celestial planet-red top-0 left-[50%]"></div>
-                    </div>
-                </div>
-                <select id="sel-gamma" class="w-full bg-slate-900 border-2 border-slate-600 text-white p-2 focus:border-yellow-500 font-bold">
-                    <option value="">[ CLASSIFICA MODELLO ]</option>
-                    <option value="Copernico">Modello Eliocentrico (Copernico)</option>
-                    <option value="Tolomeo">Modello Geocentrico (Tolomeo)</option>
-                    <option value="Brahe">Modello Ibrido (Brahe)</option>
-                </select>
+                <h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA GAMMA (Copernico)</h3>
+                <div class="radar-screen mb-4"><div class="radar-scan"></div><div class="celestial sun top-[50%] left-[50%]"></div><div class="orbit w-[40%] h-[40%] spin-fast"><div class="celestial earth top-0 left-[50%]"></div></div><div class="orbit w-[75%] h-[75%] spin-slow"><div class="celestial planet-red top-0 left-[50%]"></div></div></div>
+                <select id="sel-gamma" class="w-full bg-slate-900 border-2 border-slate-600 text-white p-2 focus:border-yellow-500 font-bold"><option value="">[ CLASSIFICA ]</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option></select>
             </div>
         </div>
-
         <div id="feedback-fase2" class="hidden mb-4 p-3 rounded font-bold text-center border-2"></div>
         <button id="btn-radar" type="button" onclick="validaRadar()" class="btn-gta w-full md:w-auto md:px-12 py-2 mx-auto block">DECRIPTA I SISTEMI</button>
     </main>
 
-    <!-- FASE 3: IL LABORATORIO TERMODINAMICO -->
-    <main id="fase-3" class="hidden w-full max-w-5xl panel-gta p-4 md:p-6 mb-8 z-10">
-        <div class="mb-6 border-b border-slate-700 pb-4">
-            <h2 class="text-4xl text-yellow-500 font-gta">LABORATORIO TERMODINAMICO</h2>
-            <p class="text-sm text-slate-300"><strong>La Direttrice:</strong> "Imposta lo slider della <span class="text-blue-400 font-bold">Linea del Gelo</span> a 4 UA (Unità Astronomiche). Dopodiché, assegna la giusta densità planetaria alla zona interna (rovente) e alla zona esterna (gelida)."</p>
-        </div>
+    <!-- FASE 3: IL LABORATORIO TERMODINAMICO (NUOVO TOP-DOWN DENTRO L'ARENA) -->
+    <main id="fase-3" class="hidden w-full max-w-6xl panel-gta p-4 md:p-6 mb-8 z-10 flex-col lg:flex-row gap-6">
+        
+        <!-- Colonna Sinistra: Arena Visiva -->
+        <div class="w-full lg:w-2/3 flex flex-col items-center">
+            <h2 class="text-3xl text-yellow-500 font-gta mb-2 w-full">SIMULATORE NEBULARE SOLARE</h2>
+            <p class="text-xs text-slate-300 mb-4 w-full"><strong>1.</strong> Imposta la Linea del Gelo a 4 UA. <strong>2.</strong> Seleziona un protopianeta dal roster a destra. <strong>3.</strong> Clicca sull'orbita desiderata per lanciarlo. Attenzione all'evaporazione!</p>
+            
+            <div class="termo-arena relative" id="arena">
+                <!-- Stella Centrale -->
+                <div class="termo-sun"></div>
+                
+                <!-- Linea del Gelo (Modificabile via slider) -->
+                <div id="frost-line" class="termo-frost-line" style="width: 20%; height: 20%;"></div>
 
-        <div class="relative w-full h-32 md:h-48 bg-slate-900 border-2 border-slate-600 rounded-lg mb-8 flex overflow-hidden">
-            <div class="w-20 md:w-32 h-full bg-gradient-to-r from-orange-500 to-yellow-400 flex items-center justify-center shadow-[20px_0_40px_rgba(249,115,22,0.6)] z-20">
-                <span class="font-gta text-2xl md:text-3xl text-orange-900 -rotate-90">STELLA</span>
+                <!-- Le 4 Orbite Cliccabili -->
+                <div class="termo-orbit" style="width: 25%; height: 25%;" onclick="piazzaPianeta(1)" id="orb-1"></div>
+                <div class="termo-orbit" style="width: 45%; height: 45%;" onclick="piazzaPianeta(2)" id="orb-2"></div>
+                <div class="termo-orbit" style="width: 70%; height: 70%;" onclick="piazzaPianeta(3)" id="orb-3"></div>
+                <div class="termo-orbit" style="width: 90%; height: 90%;" onclick="piazzaPianeta(4)" id="orb-4"></div>
             </div>
-            <div id="spazio-termico" class="relative flex-1 h-full bg-gradient-to-r from-red-900/60 via-slate-900 to-blue-900/60 z-10">
-                <div id="linea-gelo-visiva" class="absolute top-0 bottom-0 w-1 bg-blue-400 shadow-[0_0_15px_#60a5fa] transition-all duration-75" style="left: 44.4%;">
-                    <div class="absolute -top-1 left-2 text-blue-400 font-gta text-xl whitespace-nowrap bg-slate-900/80 px-2 rounded">LINEA DEL GELO</div>
+
+            <!-- Slider Linea Gelo -->
+            <div class="w-full mt-6 bg-slate-900 p-4 rounded border border-slate-700">
+                <label class="block text-cyan-400 font-bold mb-2 font-gta text-xl">RAGGIO LINEA DEL GELO: <span id="valore-ua" class="text-white">2</span> UA</label>
+                <input type="range" id="slider-gelo" min="1" max="10" value="2" class="w-full" oninput="aggiornaLineaGelo(this.value)">
+                <div class="flex justify-between text-xs text-slate-500 mt-1 font-bold">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10 UA</span>
                 </div>
             </div>
         </div>
 
-        <div class="mb-10 bg-slate-800/50 p-4 rounded-lg border border-slate-700">
-            <label class="block text-yellow-400 font-bold mb-4 font-gta text-2xl">POSIZIONE BARRIERA TERMICA: <span id="valore-ua" class="text-white">5</span> UA</label>
-            <input type="range" id="slider-gelo" min="1" max="10" value="5" class="frost-slider" oninput="aggiornaLineaGelo(this.value)">
-            <div class="flex justify-between text-xs text-slate-500 mt-2 font-bold">
-                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10 UA</span>
-            </div>
-        </div>
+        <!-- Colonna Destra: Roster Protopianeti -->
+        <div class="w-full lg:w-1/3 flex flex-col">
+            <h3 class="text-2xl text-white font-gta mb-4 bg-slate-800 p-2 text-center rounded">ROSTER PROTOPIANETI</h3>
+            
+            <div class="space-y-3 flex-1" id="roster-container">
+                <!-- Pianeta 1 (Roccioso puro) -->
+                <div class="roster-planet bg-slate-900 p-3 rounded flex items-center gap-4" onclick="selezionaPianeta('p1', this)">
+                    <div class="w-8 h-8 rounded-full p-roccia shadow-[0_0_10px_#78716c]"></div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold text-yellow-500">Pianeta Alpha</h4>
+                        <p class="text-[10px] text-slate-400">95% Silicati, 5% Gas<br>Densità: 5.5 g/cm³</p>
+                    </div>
+                </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div class="bg-slate-900 p-4 border-l-4 border-red-500 shadow-lg">
-                <h4 class="text-red-400 font-gta text-2xl mb-2">ZONA INTERNA (CALDA)</h4>
-                <select id="sel-zona-interna" class="w-full bg-slate-800 text-white p-3 border border-slate-600 focus:border-red-400 font-bold">
-                    <option value="">[ Seleziona tipologia ]</option>
-                    <option value="roccioso">Pianeti Rocciosi (Alta Densità)</option>
-                    <option value="gassoso">Giganti Gassosi (Bassa Densità)</option>
-                </select>
-            </div>
-            <div class="bg-slate-900 p-4 border-l-4 border-blue-500 shadow-lg">
-                <h4 class="text-blue-400 font-gta text-2xl mb-2">ZONA ESTERNA (FREDDA)</h4>
-                <select id="sel-zona-esterna" class="w-full bg-slate-800 text-white p-3 border border-slate-600 focus:border-blue-400 font-bold">
-                    <option value="">[ Seleziona tipologia ]</option>
-                    <option value="roccioso">Pianeti Rocciosi (Alta Densità)</option>
-                    <option value="gassoso">Giganti Gassosi (Bassa Densità)</option>
-                </select>
-            </div>
-        </div>
+                <!-- Pianeta 2 (Super-Terra Mista) -->
+                <div class="roster-planet bg-slate-900 p-3 rounded flex items-center gap-4" onclick="selezionaPianeta('p2', this)">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-stone-500 to-cyan-700 shadow-[0_0_10px_#0891b2]"></div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold text-yellow-500">Pianeta Beta</h4>
+                        <p class="text-[10px] text-slate-400">70% Roccia, 30% Ghiaccio/Gas<br>Densità: 3.2 g/cm³</p>
+                    </div>
+                </div>
 
-        <div id="feedback-fase3" class="hidden mb-4 p-3 rounded font-bold text-center border-2"></div>
-        <button id="btn-termo" type="button" onclick="validaTermodinamica()" class="btn-gta w-full md:w-auto md:px-12 py-2 mx-auto block">ATTIVA SIMULAZIONE</button>
+                <!-- Pianeta 3 (Gigante Gassoso) -->
+                <div class="roster-planet bg-slate-900 p-3 rounded flex items-center gap-4" onclick="selezionaPianeta('p3', this)">
+                    <div class="w-14 h-14 rounded-full p-gas shadow-[0_0_15px_#3b82f6]"></div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold text-yellow-500">Pianeta Gamma</h4>
+                        <p class="text-[10px] text-slate-400">10% Nucleo Roccioso, 90% Idrogeno/Elio<br>Densità: 1.1 g/cm³</p>
+                    </div>
+                </div>
+
+                <!-- Pianeta 4 (Gigante Ghiacciato) -->
+                <div class="roster-planet bg-slate-900 p-3 rounded flex items-center gap-4" onclick="selezionaPianeta('p4', this)">
+                    <div class="w-12 h-12 rounded-full p-ice shadow-[0_0_15px_#06b6d4]"></div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold text-yellow-500">Pianeta Delta</h4>
+                        <p class="text-[10px] text-slate-400">20% Roccia, 80% Ghiacci/Metano<br>Densità: 1.6 g/cm³</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="feedback-fase3" class="hidden mt-4 p-3 rounded font-bold text-center border-2 text-sm"></div>
+            <button id="btn-termo" type="button" onclick="validaTermodinamica()" class="mt-4 btn-gta w-full py-2">ESEGUI COLLAUDO SISTEMA</button>
+        </div>
     </main>
 
-    <!-- FASE 4: LA PEER REVIEW (IL TEST FINALE) -->
-    <main id="fase-4" class="hidden w-full max-w-5xl panel-gta p-4 md:p-6 mb-8 z-10">
-        <div class="mb-6 border-b border-slate-700 pb-4">
-            <h2 class="text-4xl text-yellow-500 font-gta">DESK REVISORE SCIENTIFICO</h2>
-            <p class="text-sm text-slate-300"><strong>La Direttrice:</strong> "Ultima sfida. L'IA ha generato un report sul nuovo sistema Kepler-X. Leggi le 8 tesi. Approva quelle fisicamente corrette, Boccia quelle impossibili. Margine d'errore consentito: Zero."</p>
+    <!-- FASE 4: IL PAPER ACCADEMICO (PEER REVIEW) -->
+    <main id="fase-4" class="hidden w-full max-w-4xl academic-paper p-6 md:p-12 mb-12 z-10 mt-8 relative">
+        <!-- Stile filigrana/logo fake in alto -->
+        <div class="flex justify-between items-start border-b-2 border-black pb-4 mb-6">
+            <div>
+                <p class="text-sm font-bold uppercase tracking-widest text-gray-500">ALMA Exoplanet Archive</p>
+                <p class="text-xs text-gray-500">Pre-print Submission | Not Peer Reviewed</p>
+            </div>
+            <div class="text-right">
+                <p class="text-sm font-bold">Paper ID: KPLR-X-001</p>
+                <p class="text-xs">Autore IA: Sistema Diagnostico Core</p>
+            </div>
         </div>
 
-        <!-- Contenitore dinamico delle 8 Tesi -->
-        <div id="theses-container" class="space-y-4 mb-8"></div>
+        <h1 class="paper-title text-2xl md:text-4xl mb-4">Anomalous Orbital and Thermodynamic Dynamics in the Kepler-X System</h1>
+        
+        <div class="mb-8 text-sm md:text-base leading-relaxed text-justify">
+            <p class="font-bold mb-2">Abstract.</p>
+            <p class="mb-4">Il presente manoscritto raccoglie le osservazioni preliminari generate automaticamente dalle sonde orbitanti sul sistema esoplanetario Kepler-X. L'intelligenza artificiale di bordo ha sintetizzato 8 tesi cardine riguardanti la densità planetaria, l'evoluzione termodinamica della nebulosa solare e l'architettura geometrica del sistema, mettendole in relazione con i modelli storici di Tolomeo, Copernico e Brahe.</p>
+            <p class="italic text-red-700 font-bold bg-red-100 p-2 rounded">ATTENZIONE REVISORE: Si sospetta un alto tasso di allucinazioni fisiche e ottiche da parte dell'IA. Vidimare ogni singola tesi prima dell'autorizzazione alla pubblicazione.</p>
+        </div>
 
-        <div id="feedback-fase4" class="hidden mb-4 p-4 rounded font-bold text-center border-2 text-lg"></div>
-        <button id="btn-finale" type="button" onclick="inviaReportFinale()" class="btn-gta w-full md:w-auto md:px-12 py-3 mx-auto block text-2xl bg-green-500 border-green-900 text-white">INVIA REPORT ALLA DIRETTRICE 📄</button>
+        <div id="theses-paper-container" class="space-y-6 mb-12 border-t border-gray-300 pt-6">
+            <!-- Tesi generate dinamicamente qui in stile documento -->
+        </div>
+
+        <div id="feedback-fase4" class="hidden mb-6 p-4 font-bold text-center border-2 text-lg uppercase font-gta"></div>
+        
+        <div class="flex flex-col items-center border-t-2 border-black pt-6">
+            <button id="btn-finale" type="button" onclick="inviaReportFinale()" class="bg-black text-white font-serif font-bold text-xl md:text-2xl py-4 px-8 border-4 border-double border-white shadow-[0_0_0_2px_black] hover:bg-gray-800 transition-colors">
+                FIRMA LA REVIEW E MANDA ALLA DIRETTRICE 🖋️
+            </button>
+        </div>
     </main>
 
     <script>
         /* ==========================================
-           MOTORE DATI E STATO
+           MOTORE DATI E STATO GLOBALE
            ========================================== */
-        // SOSTITUISCI CON IL TUO LINK GOOGLE APPS SCRIPT
         const SCRIPT_URL = 'INSERISCI_QUI_IL_TUO_LINK_GOOGLE_SCRIPT'; 
-        
-        let sessionData = {
-            nome: "", classe: "", inizioTimer: 0,
-            erroriRadar: 0, erroriTermo: 0, erroriTest: 0
-        };
+        let sessionData = { nome: "", classe: "", inizioTimer: 0, erroriRadar: 0, erroriTermo: 0, erroriTest: 0 };
 
-        // LE 8 TESI DEL TEST FINALE
+        // Variabili FASE 3 (Termo)
+        let pianetaSelezionato = null;
+        let posizioniOrbita = { 1: null, 2: null, 3: null, 4: null }; 
+        let currentFrostUa = 2; // Valore iniziale
+
+        // Tesi FASE 4
         const tesi = [
-            { id: 1, testo: "L'esopianeta A, distante 0.4 UA dalla stella, è un gigante gassoso con una densità bassissima.", corretta: "boccia" },
-            { id: 2, testo: "Il pianeta B mostra fasi visive complete (da piena a falce). Questo conferma un'orbita eliocentrica.", corretta: "approva" },
-            { id: 3, testo: "La densità media dei pianeti aumenta man mano che ci si allontana dalla stella.", corretta: "boccia" },
-            { id: 4, testo: "Il pianeta D compie un moto retrogrado. I sensori confermano che inverte la marcia accendendo propulsori geologici.", corretta: "boccia" },
-            { id: 5, testo: "L'esopianeta C si trova oltre la Linea del Gelo. Questo gli ha permesso di condensare e trattenere idrogeno ed elio.", corretta: "approva" },
-            { id: 6, testo: "Il calore stellare ha impedito ai materiali leggeri di solidificarsi nelle orbite interne, lasciando roccia e metalli.", corretta: "approva" },
-            { id: 7, testo: "Secondo Brahe, vedremmo tutti i pianeti ruotare attorno alla Stella centrale, ma la Stella stessa ruoterebbe attorno a noi.", corretta: "approva" },
-            { id: 8, testo: "Nel modello Geocentrico, il pianeta più vicino alla stella apparirebbe 'pieno' e completamente illuminato.", corretta: "boccia" }
+            { id: 1, testo: "L'esopianeta A, distante 0.4 UA dalla stella, è un gigante gassoso composto per il 90% da idrogeno. Questa struttura a bassa densità è in perfetto equilibrio termico con l'ambiente circostante.", corretta: "boccia" },
+            { id: 2, testo: "Il pianeta B mostra fasi visive complete (da piena a falce) dal nostro punto di osservazione. Questo fenomeno ottico conferma che il sistema segue una rigorosa architettura eliocentrica.", corretta: "approva" },
+            { id: 3, testo: "Analizzando la distribuzione di massa del disco protoplanetario originario, si evince che la densità media dei pianeti aumenta in modo lineare man mano che ci si allontana dalla stella centrale.", corretta: "boccia" },
+            { id: 4, testo: "Il pianeta D compie un moto retrogrado. Le misurazioni confermano che il corpo celeste inverte periodicamente la propria direzione fisica nello spazio accendendo propulsori geologici.", corretta: "boccia" },
+            { id: 5, testo: "L'esopianeta C si trova a 9 UA di distanza, ben oltre la Linea del Gelo. Le temperature inferiori allo zero termico gli hanno permesso di condensare e trattenere massicce quantità di elementi volatili.", corretta: "approva" },
+            { id: 6, testo: "Il calore sprigionato dalla proto-stella ha impedito ai materiali con punto di fusione basso (gas e ghiacci) di solidificarsi nelle orbite interne, lasciando sopravvivere esclusivamente metalli e silicati.", corretta: "approva" },
+            { id: 7, testo: "Applicando il modello teorico di Brahe a questo sistema, l'osservatore vedrebbe tutti i pianeti ruotare regolarmente attorno alla Stella centrale, la quale a sua volta orbiterebbe attorno all'osservatore stesso.", corretta: "approva" },
+            { id: 8, testo: "Qualora il sistema fosse governato dal modello Geocentrico, il pianeta più interno, situato tra l'osservatore e la stella, apparirebbe perennemente 'pieno' e illuminato nella sua interezza.", corretta: "boccia" }
         ];
 
         /* ==========================================
            FUNZIONI GLOBALI (Login & Accessibilità)
            ========================================== */
-        function toggleDSA() {
-            document.body.classList.toggle('dyslexia-font');
-            let isON = document.body.classList.contains('dyslexia-font');
-            document.getElementById('lbl-dsa').innerText = isON ? "ON" : "OFF";
-            document.getElementById('lbl-dsa').className = isON ? "text-green-400 font-bold" : "text-red-400 font-bold";
-        }
-        function toggleContrast() {
-            document.body.classList.toggle('high-contrast');
-            let isON = document.body.classList.contains('high-contrast');
-            document.getElementById('lbl-contrast').innerText = isON ? "ON" : "OFF";
-            document.getElementById('lbl-contrast').className = isON ? "text-green-400 font-bold" : "text-red-400 font-bold";
-        }
+        function toggleDSA() { document.body.classList.toggle('dyslexia-font'); let isON = document.body.classList.contains('dyslexia-font'); document.getElementById('lbl-dsa').innerText = isON ? "ON" : "OFF"; document.getElementById('lbl-dsa').className = isON ? "text-green-400 font-bold" : "text-red-400 font-bold"; }
+        function toggleContrast() { document.body.classList.toggle('high-contrast'); let isON = document.body.classList.contains('high-contrast'); document.getElementById('lbl-contrast').innerText = isON ? "ON" : "OFF"; document.getElementById('lbl-contrast').className = isON ? "text-green-400 font-bold" : "text-red-400 font-bold"; }
 
         function effettuaLogin() {
-            let n = document.getElementById('input-name').value.trim();
-            let c = document.getElementById('input-class').value.trim();
+            let n = document.getElementById('input-name').value.trim(); let c = document.getElementById('input-class').value.trim();
             if(!n || !c) { alert("Inserisci Nome e Classe per accedere al terminale."); return; }
-            
             sessionData.nome = n; sessionData.classe = c; sessionData.inizioTimer = Date.now();
-            
-            document.getElementById('user-display').innerText = `OPERATORE: ${n.toUpperCase()} [${c.toUpperCase()}]`;
-            document.getElementById('user-display').classList.remove('hidden');
-            
-            document.getElementById('fase-0').classList.add('hidden');
-            document.getElementById('fase-1').classList.remove('hidden');
-            document.getElementById('fase-1').classList.add('flex');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('user-display').innerText = `OPERATORE: ${n.toUpperCase()} [${c.toUpperCase()}]`; document.getElementById('user-display').classList.remove('hidden');
+            document.getElementById('fase-0').classList.add('hidden'); document.getElementById('fase-1').classList.remove('hidden'); document.getElementById('fase-1').classList.add('flex'); window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         /* ==========================================
-           FASE 1: L'EFFETTO TYPEWRITER
+           FASE 1: TYPEWRITER E FASE 2: RADAR
            ========================================== */
         const testoDirettrice = `"Benvenuti ad ALMA, reclute.\n\nIo sono la Direttrice del centro. Da queste parabole noi non guardiamo le nuvole, noi guardiamo la genesi dei mondi.\n\nPrima di farvi mettere le mani sulle console, dovete capire la geometria dello spazio. Tolomeo credeva fossimo fermi al centro. Copernico ci ha dimostrato che è il Sole a stare al centro, spiegando le fasi dei pianeti e l'illusione del moto retrogrado. Brahe ha tentato un ibrido.\n\nOltre alla geometria c'è il calore. Vicino alle stelle la materia evapora, lasciando solo sassi pesanti. Lontano, oltre una precisa 'Linea del Gelo', il freddo permette ai gas di addensarsi in giganti sterminati.\n\nSe avete capito le basi, siete pronti. Accedete alla Sala Radar e dimostratemi cosa sapete fare."`;
-        
-        let typeIndex = 0;
-        let isTyping = false;
+        let typeIndex = 0; let isTyping = false;
 
         function avviaTrasmissione() {
-            if(isTyping) return;
-            isTyping = true;
-            
-            document.getElementById('btn-ricevi').classList.add('hidden');
-            document.getElementById('testo-battuto').innerHTML = ""; // Pulisce il testo
-            
-            let audio = document.getElementById('audio-direttrice');
-            audio.play().catch(e => console.log("Autoplay bloccato dal browser, procedo col testo."));
-
+            if(isTyping) return; isTyping = true;
+            document.getElementById('btn-ricevi').classList.add('hidden'); document.getElementById('testo-battuto').innerHTML = "";
+            let audio = document.getElementById('audio-direttrice'); audio.play().catch(e => console.log("Autoplay bloccato."));
             function typeWriter() {
                 if (typeIndex < testoDirettrice.length) {
                     let char = testoDirettrice.charAt(typeIndex);
-                    if(char === '\n') document.getElementById('testo-battuto').innerHTML += '<br>';
-                    else document.getElementById('testo-battuto').innerHTML += char;
-                    
-                    typeIndex++;
-                    setTimeout(typeWriter, 35); // Velocità battitura
-                } else {
-                    document.getElementById('btn-vai-fase2').disabled = false;
-                    document.getElementById('btn-vai-fase2').classList.remove('opacity-50', 'cursor-not-allowed');
-                }
+                    document.getElementById('testo-battuto').innerHTML += (char === '\n') ? '<br>' : char;
+                    typeIndex++; setTimeout(typeWriter, 30);
+                } else { document.getElementById('btn-vai-fase2').disabled = false; document.getElementById('btn-vai-fase2').classList.remove('opacity-50', 'cursor-not-allowed'); }
             }
             typeWriter();
         }
 
-        /* ==========================================
-           TRANSIZIONI TRA FASI
-           ========================================== */
-        function avviaFase2() {
-            let audio = document.getElementById('audio-direttrice');
-            if(audio) audio.pause();
-            document.getElementById('fase-1').classList.remove('flex');
-            document.getElementById('fase-1').classList.add('hidden');
-            document.getElementById('fase-2').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        function ripassoForzato() {
-            document.getElementById('fase-2').classList.add('hidden');
-            document.getElementById('fase-1').classList.remove('hidden');
-            document.getElementById('fase-1').classList.add('flex');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        function avviaFase2() { let audio = document.getElementById('audio-direttrice'); if(audio) audio.pause(); document.getElementById('fase-1').classList.remove('flex'); document.getElementById('fase-1').classList.add('hidden'); document.getElementById('fase-2').classList.remove('hidden'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function ripassoForzato() { document.getElementById('fase-2').classList.add('hidden'); document.getElementById('fase-1').classList.remove('hidden'); document.getElementById('fase-1').classList.add('flex'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-        /* ==========================================
-           FASE 2: VALIDAZIONE RADAR
-           ========================================== */
         function validaRadar() {
-            let alfa = document.getElementById('sel-alfa').value;
-            let beta = document.getElementById('sel-beta').value;
-            let gamma = document.getElementById('sel-gamma').value;
-            let fb = document.getElementById('feedback-fase2');
+            let alfa = document.getElementById('sel-alfa').value; let beta = document.getElementById('sel-beta').value; let gamma = document.getElementById('sel-gamma').value; let fb = document.getElementById('feedback-fase2');
+            if(!alfa || !beta || !gamma) { fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-yellow-900/80 border-yellow-500 text-yellow-300 block"; fb.innerText = "ATTENZIONE: Analizza tutti e tre i radar prima di inviare."; return; }
+            if(alfa === "Brahe" && beta === "Tolomeo" && gamma === "Copernico") {
+                fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-green-900/80 border-green-400 text-green-300 block animate-pulse"; fb.innerText = "ACCESSO SBLOCCATO. Parametri corretti.";
+                document.getElementById('btn-radar').disabled = true;
+                setTimeout(() => { document.getElementById('fase-2').classList.add('hidden'); document.getElementById('fase-3').classList.remove('hidden'); document.getElementById('fase-3').classList.add('flex'); window.scrollTo({ top: 0, behavior: 'smooth' }); }, 2000);
+            } else {
+                sessionData.erroriRadar++; fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block"; fb.innerHTML = "ERRORE CRITICO. Torna ad ascoltare il briefing della Direttrice."; setTimeout(ripassoForzato, 3500);
+            }
+        }
 
-            if(!alfa || !beta || !gamma) {
-                fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-yellow-900/80 border-yellow-500 text-yellow-300 block";
-                fb.innerText = "ATTENZIONE: Analizza tutti e tre i radar prima di inviare.";
+        /* ==========================================
+           FASE 3: IL NUOVO GIOCO TOP-DOWN
+           ========================================== */
+        function aggiornaLineaGelo(val) {
+            currentFrostUa = parseInt(val);
+            document.getElementById('valore-ua').innerText = currentFrostUa;
+            // Calcolo empirico per allargare il cerchio visivo CSS
+            // 1 UA = 20%, 4 UA = 50%, 10 UA = 95%
+            let sizePercent = 10 + (currentFrostUa * 9); 
+            let frostLine = document.getElementById('frost-line');
+            frostLine.style.width = sizePercent + '%';
+            frostLine.style.height = sizePercent + '%';
+        }
+
+        function selezionaPianeta(id, elem) {
+            // Rimuovi selezione da tutti
+            document.querySelectorAll('.roster-planet').forEach(el => el.classList.remove('selected'));
+            // Aggiungi al cliccato
+            elem.classList.add('selected');
+            
+            // Dati del pianeta basati sull'ID
+            let pData = { id: id };
+            if(id === 'p1') { pData.gas = 5; pData.css = "p-roccia w-6 h-6"; }
+            if(id === 'p2') { pData.gas = 30; pData.css = "bg-gradient-to-r from-stone-500 to-cyan-700 w-8 h-8"; }
+            if(id === 'p3') { pData.gas = 90; pData.css = "p-gas w-12 h-12"; }
+            if(id === 'p4') { pData.gas = 80; pData.css = "p-ice w-10 h-10"; }
+            
+            pianetaSelezionato = pData;
+        }
+
+        function piazzaPianeta(orbitIndex) {
+            if(!pianetaSelezionato) return;
+            
+            let fb = document.getElementById('feedback-fase3');
+            
+            // Definiamo empiricamente le UA delle 4 orbite nel nostro CSS (25%, 45%, 70%, 90%)
+            let orbitUa = { 1: 1.5, 2: 3, 3: 6, 4: 9 }[orbitIndex];
+            
+            // Controlla se la posizione è calda (Orbit UA <= Frost Line UA)
+            let isHot = orbitUa <= currentFrostUa;
+            
+            // Logica Fisica: Se ha tanto gas (>50%) ed è in zona calda, BRUCIA!
+            if(pianetaSelezionato.gas > 50 && isHot) {
+                fb.className = "mt-4 p-3 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block";
+                fb.innerHTML = `🔥 DISASTRO! Hai messo un gigante gassoso troppo vicino al sole (Zona Calda). Il gas è evaporato nello spazio!`;
+                sessionData.erroriTermo++;
+                
+                // Creiamo l'effetto evaporazione sull'orbita
+                let orbDiv = document.getElementById('orb-' + orbitIndex);
+                let fuoco = document.createElement('div');
+                fuoco.className = `celestial ${pianetaSelezionato.css} top-0 left-[50%] anim-evaporate`;
+                orbDiv.appendChild(fuoco);
+                setTimeout(() => { if(fuoco.parentNode) fuoco.parentNode.removeChild(fuoco); }, 1000);
+                
+                pianetaSelezionato = null;
+                document.querySelectorAll('.roster-planet').forEach(el => el.classList.remove('selected'));
                 return;
             }
 
-            if(alfa === "Brahe" && beta === "Tolomeo" && gamma === "Copernico") {
-                fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-green-900/80 border-green-400 text-green-300 block animate-pulse";
-                fb.innerText = "ACCESSO SBLOCCATO. Parametri corretti.";
-                document.getElementById('btn-radar').disabled = true;
-                setTimeout(() => {
-                    document.getElementById('fase-2').classList.add('hidden');
-                    document.getElementById('fase-3').classList.remove('hidden');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }, 2000);
-            } else {
-                sessionData.erroriRadar++;
-                fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block";
-                fb.innerHTML = "ERRORE CRITICO. Torna ad ascoltare il briefing della Direttrice.";
-                setTimeout(ripassoForzato, 3500);
-            }
+            // Altrimenti, piazzalo con successo
+            fb.className = "hidden";
+            let orbDiv = document.getElementById('orb-' + orbitIndex);
+            
+            // Svuota l'orbita se c'era già qualcosa
+            orbDiv.innerHTML = "";
+            posizioniOrbita[orbitIndex] = pianetaSelezionato.id;
+            
+            let htmlPlanet = `<div class="celestial ${pianetaSelezionato.css} spin-fast" style="top: 0; left: 50%; transform-origin: 0 100%;"></div>`;
+            orbDiv.innerHTML = `<div style="position:absolute; width:100%; height:100%; animation: spin ${3 + orbitIndex}s linear infinite;"><div class="celestial ${pianetaSelezionato.css}" style="top:0; left:50%;"></div></div>`;
+            
+            // Rimuovi visivamente il pianeta dal roster
+            let pDiv = document.querySelector(`.roster-planet[onclick*="${pianetaSelezionato.id}"]`);
+            if(pDiv) pDiv.style.opacity = '0.2';
+            
+            pianetaSelezionato = null;
+            document.querySelectorAll('.roster-planet').forEach(el => el.classList.remove('selected'));
         }
-
-        /* ==========================================
-           FASE 3: TERMODINAMICA
-           ========================================== */
-        function aggiornaLineaGelo(val) {
-            document.getElementById('valore-ua').innerText = val;
-            document.getElementById('linea-gelo-visiva').style.left = (((val - 1) / 9) * 100) + '%';
-        }
-        aggiornaLineaGelo(5); // Init
 
         function validaTermodinamica() {
-            let ua = document.getElementById('slider-gelo').value;
-            let int = document.getElementById('sel-zona-interna').value;
-            let est = document.getElementById('sel-zona-esterna').value;
             let fb = document.getElementById('feedback-fase3');
+            let piazzati = Object.values(posizioniOrbita).filter(v => v !== null).length;
+            
+            if(piazzati < 4) {
+                fb.className = "mt-4 p-3 rounded font-bold text-center border-2 bg-yellow-900/80 border-yellow-500 text-yellow-300 block";
+                fb.innerText = "Devi collocare con successo tutti e 4 i protopianeti nelle orbite senza farli evaporare.";
+                return;
+            }
+            
+            if(currentFrostUa != 4) {
+                fb.className = "mt-4 p-3 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block";
+                fb.innerText = "ERRORE: La Direttrice aveva richiesto di impostare la Linea del Gelo esattamente a 4 UA.";
+                sessionData.erroriTermo++;
+                return;
+            }
 
-            if(!int || !est) {
-                fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-yellow-900/80 border-yellow-500 text-yellow-300 block";
-                fb.innerText = "ATTENZIONE: Seleziona la tipologia di pianeti."; return;
-            }
-            if(ua != 4) {
-                sessionData.erroriTermo++;
-                fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block";
-                fb.innerText = "ERRORE: La Linea del Gelo non è a 4 UA."; return;
-            }
-            if(int === "roccioso" && est === "gassoso") {
-                fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-green-900/80 border-green-400 text-green-300 block animate-pulse";
-                fb.innerText = "CALIBRAZIONE PERFETTA.";
-                document.getElementById('btn-termo').disabled = true;
-                setTimeout(() => {
-                    document.getElementById('fase-3').classList.add('hidden');
-                    document.getElementById('fase-4').classList.remove('hidden');
-                    renderTesi(); // Genera i pulsanti HTML
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }, 2000);
-            } else {
-                sessionData.erroriTermo++;
-                fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block";
-                fb.innerText = "DISASTRO: Stai facendo evaporare i giganti gassosi mettendoli troppo vicini al sole!";
-            }
+            fb.className = "mt-4 p-3 rounded font-bold text-center border-2 bg-green-900/80 border-green-400 text-green-300 block animate-pulse";
+            fb.innerText = "SISTEMA STABILE! Collaudo superato. Preparazione del Paper Accademico...";
+            document.getElementById('btn-termo').disabled = true;
+            
+            setTimeout(() => {
+                document.getElementById('fase-3').classList.remove('flex');
+                document.getElementById('fase-3').classList.add('hidden');
+                document.getElementById('fase-4').classList.remove('hidden');
+                renderPaperTesi();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 2500);
         }
 
         /* ==========================================
-           FASE 4: LE 8 TESI E INVIO GOOGLE
+           FASE 4: PAPER ACCADEMICO E INVIO
            ========================================== */
-        let risposteStudente = {}; // { 1: "approva", 2: "boccia", ... }
+        let rispostePaper = {};
 
-        function renderTesi() {
+        function renderPaperTesi() {
             let html = "";
-            tesi.forEach(t => {
+            tesi.forEach((t, i) => {
                 html += `
-                <div class="bg-slate-900 p-4 rounded border border-slate-600 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p class="text-sm text-slate-200 md:w-2/3"><span class="text-yellow-500 font-gta text-xl">TESI ${t.id}:</span> ${t.testo}</p>
-                    <div class="flex gap-2 w-full md:w-auto">
-                        <button id="btn-${t.id}-approva" onclick="selezionaTesi(${t.id}, 'approva')" class="flex-1 md:w-32 py-2 rounded text-sm font-bold bg-slate-800 text-slate-400 border border-slate-600 hover:bg-green-900 transition-colors">APPROVA</button>
-                        <button id="btn-${t.id}-boccia" onclick="selezionaTesi(${t.id}, 'boccia')" class="flex-1 md:w-32 py-2 rounded text-sm font-bold bg-slate-800 text-slate-400 border border-slate-600 hover:bg-red-900 transition-colors">BOCCIA</button>
+                <div class="flex flex-col md:flex-row gap-4 mb-6 pb-6 border-b border-gray-200 items-start">
+                    <div class="text-sm md:text-base flex-1">
+                        <span class="font-bold mr-2">[HP.${i+1}]</span> ${t.testo}
+                    </div>
+                    <div class="flex gap-2 shrink-0">
+                        <button id="stamp-${t.id}-approva" onclick="apponiTimbro(${t.id}, 'approva')" class="stamp-btn stamp-approva">APPROVA</button>
+                        <button id="stamp-${t.id}-boccia" onclick="apponiTimbro(${t.id}, 'boccia')" class="stamp-btn stamp-boccia">BOCCIA</button>
                     </div>
                 </div>`;
             });
-            document.getElementById('theses-container').innerHTML = html;
+            document.getElementById('theses-paper-container').innerHTML = html;
         }
 
-        function selezionaTesi(id, scelta) {
-            risposteStudente[id] = scelta;
-            // Reset grafico bottoni
-            document.getElementById(`btn-${id}-approva`).className = "flex-1 md:w-32 py-2 rounded text-sm font-bold bg-slate-800 text-slate-400 border border-slate-600";
-            document.getElementById(`btn-${id}-boccia`).className = "flex-1 md:w-32 py-2 rounded text-sm font-bold bg-slate-800 text-slate-400 border border-slate-600";
-            
-            // Applica colore attivo
-            let btnAttivo = document.getElementById(`btn-${id}-${scelta}`);
-            if(scelta === 'approva') btnAttivo.className = "flex-1 md:w-32 py-2 rounded text-sm font-bold bg-green-500 text-white shadow-[0_0_10px_#22c55e]";
-            if(scelta === 'boccia') btnAttivo.className = "flex-1 md:w-32 py-2 rounded text-sm font-bold bg-red-500 text-white shadow-[0_0_10px_#ef4444]";
+        function apponiTimbro(id, scelta) {
+            rispostePaper[id] = scelta;
+            document.getElementById(`stamp-${id}-approva`).classList.remove('active');
+            document.getElementById(`stamp-${id}-boccia`).classList.remove('active');
+            document.getElementById(`stamp-${id}-${scelta}`).classList.add('active');
         }
 
         function inviaReportFinale() {
             let fb = document.getElementById('feedback-fase4');
             
-            // Controllo che le abbia cliccate tutte
-            if(Object.keys(risposteStudente).length < 8) {
-                fb.className = "mb-4 p-4 rounded font-bold text-center border-2 bg-yellow-900/80 border-yellow-500 text-yellow-300 block";
-                fb.innerText = "ATTENZIONE: Devi esprimere un giudizio (Approva o Boccia) per TUTTE le 8 tesi prima di consegnare.";
-                return;
+            if(Object.keys(rispostePaper).length < 8) {
+                fb.className = "mb-6 p-4 font-bold text-center border-2 text-lg uppercase font-gta bg-yellow-100 text-yellow-800 border-yellow-500 block";
+                fb.innerText = "ATTENZIONE: Devi apporre un timbro (Approva o Boccia) su tutte le 8 ipotesi."; return;
             }
 
-            // Calcolo errori
             let sbagliate = 0;
-            tesi.forEach(t => { if(risposteStudente[t.id] !== t.corretta) sbagliate++; });
+            tesi.forEach(t => { if(rispostePaper[t.id] !== t.corretta) sbagliate++; });
 
             if(sbagliate > 0) {
                 sessionData.erroriTest++;
-                fb.className = "mb-4 p-4 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block";
-                fb.innerHTML = `REPORT RESPINTI.<br>La Direttrice ha rilevato ${sbagliate} giudizi fisicamente impossibili nel tuo report. Rivedi le tue valutazioni.`;
-                return; // Non li fa passare e non resetta le risposte, devono capire dove hanno sbagliato.
+                fb.className = "mb-6 p-4 font-bold text-center border-2 text-lg uppercase font-gta bg-red-100 text-red-700 border-red-700 block";
+                fb.innerHTML = `PAPER RIFIUTATO DALLA COMMISSIONE.<br>Trovati ${sbagliate} errori critici di fisica. Rivedi le tue valutazioni.`;
+                return; 
             }
 
-            // TUTTO CORRETTO! (8/8)
             let tempoTotale = Math.floor((Date.now() - sessionData.inizioTimer) / 1000);
-            fb.className = "mb-4 p-4 rounded font-bold text-center border-2 bg-green-500 border-green-300 text-white block animate-pulse";
-            fb.innerHTML = `REPORT VALIDATO! Analisi impeccabile.<br>Tempo impiegato: ${tempoTotale} secondi. Salvataggio dati nel database centrale...`;
-            
+            fb.className = "mb-6 p-4 font-bold text-center border-2 text-lg uppercase font-gta bg-green-100 text-green-800 border-green-600 block";
+            fb.innerHTML = `PAPER ACCETTATO E PUBBLICATO.<br>Tempo missione: ${tempoTotale}s. Invio dati alla Direttrice...`;
             document.getElementById('btn-finale').disabled = true;
 
-            // PREPARA IL PAYLOAD PER GOOGLE SHEETS
             let payload = {
                 modulo: "Modulo 1 - Astrofisica",
                 nome: sessionData.nome,
@@ -565,21 +519,9 @@
                 err_test_finale: sessionData.erroriTest,
                 timestamp: new Date().toISOString()
             };
-
             console.log("Invio dati a Google: ", payload);
-
-            // Scommentare questo blocco quando inserirai lo SCRIPT_URL reale in cima
-            /*
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(() => {
-                alert("Dati salvati sul registro di classe con successo!");
-            }).catch(e => console.error("Errore salvataggio: ", e));
-            */
         }
+        aggiornaLineaGelo(2); // Inizializza visualizzazione
     </script>
 </body>
 </html>
