@@ -638,5 +638,60 @@ function inviaReportFinale() {
         }
         aggiornaLineaGelo(2);
     </script>
+    <!-- ==========================================
+         SISTEMA APPUNTI ALMA (SEMPRE VISIBILE)
+         ========================================== -->
+    
+    <!-- Pulsante Fluttuante -->
+    <button onclick="document.getElementById('modal-manuale').classList.remove('hidden')" class="fixed bottom-4 right-4 z-50 bg-yellow-600 text-slate-900 font-gta font-bold py-3 px-5 rounded border-2 border-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.5)] hover:bg-yellow-400 transition-all transform hover:scale-105">
+        📋 DATABASE ALMA
+    </button>
+
+    <!-- Finestra Modale a Scomparsa -->
+    <div id="modal-manuale" class="hidden fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-slate-900 border-2 border-yellow-500 text-white max-w-3xl w-full p-6 md:p-8 rounded-lg shadow-2xl overflow-y-auto max-h-[85vh]">
+            
+            <div class="flex justify-between items-center border-b-2 border-slate-700 pb-4 mb-6">
+                <h3 class="text-2xl md:text-3xl font-gta text-yellow-500 tracking-wider">ARCHIVIO DATI: SINTESI TEORICA</h3>
+                <button onclick="document.getElementById('modal-manuale').classList.add('hidden')" class="text-red-500 hover:text-red-400 font-black text-2xl px-2">X</button>
+            </div>
+            
+            <div class="space-y-6 font-serif text-sm md:text-base text-slate-300 leading-relaxed">
+                
+                <div class="bg-slate-800/50 p-4 rounded border-l-4 border-blue-500">
+                    <h4 class="text-blue-400 font-bold text-lg mb-2 font-sans uppercase">1. I Modelli dei Sistemi Stellari</h4>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong class="text-white">Copernico (Eliocentrico):</strong> La Stella è immobile al centro del sistema. Tutti i pianeti le orbitano attorno con velocità diverse.</li>
+                        <li><strong class="text-white">Tolomeo (Geocentrico):</strong> Il pianeta dell'osservatore è immobile al centro. La Stella e gli altri pianeti gli ruotano attorno in modo complesso.</li>
+                        <li><strong class="text-white">Brahe (Geo-Eliocentrico):</strong> Modello ibrido. Il pianeta dell'osservatore è fermo, la Stella gli ruota attorno, ma gli altri pianeti ruotano attorno alla Stella.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded border-l-4 border-cyan-500">
+                    <h4 class="text-cyan-400 font-bold text-lg mb-2 font-sans uppercase">2. La Termodinamica e la Linea del Gelo</h4>
+                    <p>La "Linea del Gelo" è il confine termico del sistema stellare.</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-2">
+                        <li><strong class="text-white">All'interno della linea (Zona Calda):</strong> I gas leggeri vengono spazzati via dal vento stellare o non solidificano. Possono formarsi solo <strong>Pianeti Rocciosi</strong> (densi e compatti).</li>
+                        <li><strong class="text-white">All'esterno della linea (Zona Fredda):</strong> Le temperature crollano. I gas e gli elementi volatili condensano, permettendo la formazione dei massicci <strong>Giganti Gassosi</strong> (bassa densità).</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded border-l-4 border-purple-500">
+                    <h4 class="text-purple-400 font-bold text-lg mb-2 font-sans uppercase">3. Fenomeni Ottici e Orbitali</h4>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong class="text-white">Moto Retrogrado:</strong> È una pura illusione ottica che si verifica solo in un sistema Eliocentrico. Avviene quando un pianeta interno (più veloce) "sorpassa" un pianeta esterno (più lento), facendolo sembrare tornare indietro nel cielo notturno.</li>
+                        <li><strong class="text-white">Fasi Visive:</strong> Proprio come la nostra Luna, nei sistemi eliocentrici i pianeti interni mostrano fasi visive complete (da "pieni" a "nuovi") rispetto a chi osserva da un pianeta più esterno.</li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <div class="mt-8 text-center border-t-2 border-slate-700 pt-6">
+                <button onclick="document.getElementById('modal-manuale').classList.add('hidden')" class="btn-gta bg-slate-700 hover:bg-slate-600 text-white py-3 px-8 text-lg border-2 border-slate-900 w-full md:w-auto">
+                    CHIUDI ARCHIVIO E TORNA ALLA MISSIONE
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
