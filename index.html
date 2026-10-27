@@ -111,15 +111,23 @@
     </main>
 
     <!-- FASE 1: ACCOGLIENZA -->
-    <main id="fase-1" class="hidden w-full max-w-5xl panel-gta p-4 md:p-6 mb-8 flex-col md:flex-row gap-6 z-10">
-        <div class="w-full md:w-1/2 flex flex-col">
-            <div class="border-4 border-slate-900 rounded-lg overflow-hidden bg-black aspect-video relative shadow-inner">
-                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80" alt="Direttrice" class="w-full h-full object-cover">
-                <div class="absolute bottom-2 left-2 text-xs text-yellow-400 font-bold bg-slate-900/90 p-1 px-2 border border-slate-700">🎙️ IN TRASMISSIONE...</div>
-            </div>
-            <audio id="audio-direttrice"><source src="direttrice.mp3" type="audio/mpeg"></audio>
-            <button id="btn-ricevi" type="button" onclick="avviaTrasmissione()" class="mt-4 btn-gta py-2 bg-blue-500 border-blue-900 text-white w-full">RICEVI TRASMISSIONE 🔊</button>
+<main id="fase-1" class="hidden w-full max-w-5xl panel-gta p-4 md:p-6 mb-8 flex-col md:flex-row gap-6 z-10">
+    <div class="w-full md:w-1/2 flex flex-col">
+        <div class="border-4 border-slate-900 rounded-lg overflow-hidden bg-black aspect-video relative shadow-inner">
+            <!-- Nuova foto della Direttrice (senza scritta) -->
+            <img src="direttrice.jpg" alt="Direttrice" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80'">
+            <div class="absolute bottom-2 left-2 text-xs text-yellow-400 font-bold bg-slate-900/90 p-1 px-2 border border-slate-700">🎙️ IN TRASMISSIONE...</div>
         </div>
+        
+        <!-- RIQUADRO INFO SOTTO LA FOTO -->
+        <div class="mt-3 p-3 bg-slate-900 border-2 border-yellow-500 rounded text-center">
+            <p class="text-lg md:text-xl font-gta text-yellow-400 font-bold tracking-wider m-0">DR.SSA ELENA SILVESTRI</p>
+            <p class="text-[11px] md:text-xs text-slate-400 uppercase tracking-widest font-bold">Direttrice dell'Osservatorio Astrofisico ALMA</p>
+        </div>
+        
+        <audio id="audio-direttrice"><source src="direttrice.mp3" type="audio/mpeg"></audio>
+        <button id="btn-ricevi" type="button" onclick="avviaTrasmissione()" class="mt-3 btn-gta py-2 bg-blue-500 border-blue-900 text-white w-full">RICEVI TRASMISSIONE 🔊</button>
+    </div>
         <div class="w-full md:w-1/2 flex flex-col justify-between">
             <div>
                 <h2 class="text-4xl text-yellow-500 font-gta mb-2">BENVENUTI RECLUTE</h2>
