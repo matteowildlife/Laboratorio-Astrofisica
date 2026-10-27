@@ -47,9 +47,8 @@
         
         .termo-frost-line { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px solid #38bdf8; border-radius: 50%; pointer-events: none; box-shadow: 0 0 10px #38bdf8 inset, 0 0 10px #38bdf8; z-index: 15; transition: width 0.3s, height 0.3s; }
         
-        /* Pianeti nel sistema solare */
-        .planet-node { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; animation: orbitRotate linear infinite; pointer-events: none; z-index: 25; }
-        @keyframes orbitRotate { 100% { transform: rotate(360deg); } }
+        /* Pianeti nel sistema solare (NUOVO MOTORE ROTAZIONE) */
+        @keyframes orbitRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .roster-planet { cursor: pointer; border: 2px solid #334155; transition: all 0.2s; }
         .roster-planet.selected { border-color: #facc15; background: rgba(250,204,21,0.1); transform: scale(1.02); }
@@ -64,7 +63,7 @@
             50% { transform: translate(-50%, -50%) scale(2.5); opacity: 0.8; filter: brightness(2) hue-rotate(-50deg); }
             100% { transform: translate(-50%, -50%) scale(4); opacity: 0; filter: brightness(3); }
         }
-        .anim-evaporate { position: absolute; top: 50%; left: 50%; animation: evaporate 0.8s forwards; z-index: 40; }
+        .anim-evaporate { position: absolute; animation: evaporate 0.8s forwards; z-index: 40; pointer-events: none; }
 
         /* PAPER ACCADEMICO (FASE 4) */
         .academic-paper { background: #fafafa; color: #111; font-family: 'Times New Roman', Times, serif; box-shadow: 0 0 20px rgba(0,0,0,0.5); border-radius: 2px; }
@@ -115,7 +114,6 @@
     <main id="fase-1" class="hidden w-full max-w-5xl panel-gta p-4 md:p-6 mb-8 flex-col md:flex-row gap-6 z-10">
         <div class="w-full md:w-1/2 flex flex-col">
             <div class="border-4 border-slate-900 rounded-lg overflow-hidden bg-black aspect-video relative shadow-inner">
-                <!-- Nuova foto Direttrice -->
                 <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80" alt="Direttrice" class="w-full h-full object-cover">
                 <div class="absolute bottom-2 left-2 text-xs text-yellow-400 font-bold bg-slate-900/90 p-1 px-2 border border-slate-700">🎙️ IN TRASMISSIONE...</div>
             </div>
@@ -125,7 +123,6 @@
         <div class="w-full md:w-1/2 flex flex-col justify-between">
             <div>
                 <h2 class="text-4xl text-yellow-500 font-gta mb-2">BENVENUTI RECLUTE</h2>
-                <!-- Aggiunto id="box-direttrice" e la classe hide-scrollbar -->
                 <div id="box-direttrice" class="text-sm text-green-400 font-bold leading-relaxed bg-slate-950 p-4 rounded border-2 border-slate-700 h-64 overflow-y-auto hide-scrollbar shadow-inner">
                     <div id="testo-battuto">Connessione in attesa... Clicca "Ricevi Trasmissione".</div>
                 </div>
@@ -157,17 +154,23 @@
             
             <div class="termo-arena" id="arena">
                 <div class="termo-sun"></div>
+                
+                <!-- Anelli visivi delle orbite -->
                 <div class="termo-orbit-ring" style="width: 35%; height: 35%;"></div>
                 <div class="termo-orbit-ring" style="width: 55%; height: 55%;"></div>
                 <div class="termo-orbit-ring" style="width: 75%; height: 75%;"></div>
                 <div class="termo-orbit-ring" style="width: 92%; height: 92%;"></div>
+                
+                <!-- Linea Gelo -->
                 <div id="frost-line" class="termo-frost-line" style="width: 40%; height: 40%;"></div>
 
-                <div class="termo-click-zone" style="width: 35%; height: 35%;" onclick="piazzaPianeta(1)" title="Orbita 1 (1.5 UA)"></div>
-                <div class="termo-click-zone" style="width: 55%; height: 55%;" onclick="piazzaPianeta(2)" title="Orbita 2 (3 UA)"></div>
-                <div class="termo-click-zone" style="width: 75%; height: 75%;" onclick="piazzaPianeta(3)" title="Orbita 3 (6 UA)"></div>
+                <!-- ZONE CLICCABILI (Ordine dal più grande al più piccolo per evitare coperture errate!) -->
                 <div class="termo-click-zone" style="width: 92%; height: 92%;" onclick="piazzaPianeta(4)" title="Orbita 4 (9 UA)"></div>
+                <div class="termo-click-zone" style="width: 75%; height: 75%;" onclick="piazzaPianeta(3)" title="Orbita 3 (6 UA)"></div>
+                <div class="termo-click-zone" style="width: 55%; height: 55%;" onclick="piazzaPianeta(2)" title="Orbita 2 (3 UA)"></div>
+                <div class="termo-click-zone" style="width: 35%; height: 35%;" onclick="piazzaPianeta(1)" title="Orbita 1 (1.5 UA)"></div>
 
+                <!-- Contenitore Pianeti -->
                 <div id="planets-layer" class="absolute inset-0 pointer-events-none z-20"></div>
             </div>
 
@@ -270,8 +273,7 @@
             document.getElementById('fase-0').classList.add('hidden'); document.getElementById('fase-1').classList.remove('hidden'); document.getElementById('fase-1').classList.add('flex'); window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        const testoDirettrice = `"Benvenuti ad ALMA, reclute.\n\nIo sono la Direttrice. Da queste parabole guardiamo la genesi dei mondi.\n\nPrima di toccare le console, studiate la geometria: Tolomeo ci voleva al centro, Copernico ha messo il Sole al centro spiegando le fasi e il moto retrogrado. Brahe ha cercato un ibrido.\n\nOltre alla geometria c'è il calore: vicino alla stella la materia evapora, lasciando sassi pesanti. Lontano, oltre la Linea del Gelo, il freddo condensa i gas in giganti.\n\nDimostrate cosa sapete fare nella Sala Radar."`;
-        let typeIndex = 0; let isTyping = false;
+        const testoDirettrice = `"Benvenuti ad ALMA, nel cuore del deserto di Atacama. Sapete perché vi abbiamo fatto arrivare fin quassù, a cinquemila metri di quota?\n\nPerché i supercomputer non bastano più. Stiamo captando una valanga di dati da nuovi sistemi stellari e ci servono menti fresche e intuizioni umane per decifrarli. Siete qui per darci una mano.\n\nMa prima di affidarvi gli strumenti di osservazione più sensibili e complessi del pianeta, voglio essere sicura che non facciate danni. Per secoli gli astronomi hanno preso cantonate colossali: Tolomeo si era illuso che fossimo fermi al centro di tutto. È dovuto arrivare Copernico per rimettere il Sole al suo posto, spiegandoci finalmente l'illusione di quei pianeti che sembrano fare 'marcia indietro' nel cielo. Per non parlare di Brahe, che ha provato a inventarsi un modello ibrido per non scontentare nessuno...\n\nOltre alla geometria, ricordatevi la regola d'oro: quando nasce un sistema planetario, è la stella centrale a dettare legge. Sprigionando una quantità di energia devastante, la stella agisce come un gigantesco filtro cosmico. Il suo calore spazza via i materiali leggeri, selezionando e lasciando sopravvivere nelle orbite interne solo le rocce più dense e pesanti. Per permettere ai gas di addensarsi e formare pianeti giganti, dovete allontanarvi dalla sua furia, nel buio e nel freddo, oltre quella barriera invisibile che noi chiamiamo la 'Linea del Gelo'.\n\nSe vi sentite all'altezza, il vostro primo vero incarico vi aspetta nella Sala Radar. Dimostratemi di che pasta siete fatti."`;
 
         function avviaTrasmissione() {
             if(isTyping) return; isTyping = true;
@@ -284,7 +286,6 @@
                     document.getElementById('testo-battuto').innerHTML += (char === '\n') ? '<br>' : char;
                     typeIndex++; 
                     
-                    // L'AUTO-SCROLL IN BASSO
                     let box = document.getElementById('box-direttrice');
                     box.scrollTop = box.scrollHeight;
                     
@@ -343,15 +344,21 @@
             
             let orbitUa = { 1: 1.5, 2: 3, 3: 6, 4: 9 }[orbitIndex];
             let isHot = orbitUa <= currentFrostUa;
+            let sizes = { 1: '35%', 2: '55%', 3: '75%', 4: '92%' };
             
             if(pianetaSelezionato.gas > 50 && isHot) {
                 fb.className = "mt-4 p-3 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block";
-                fb.innerHTML = `🔥 ERRORE FISICO! Il ${pianetaSelezionato.name} (ricco di gas) è troppo vicino al Sole e <strong>è evaporato</strong>!`;
+                fb.innerHTML = `🔥 ERRORE FISICO! Il ${pianetaSelezionato.name} (ricco di gas) è troppo vicino al Sole ed <strong>è evaporato</strong>!`;
                 sessionData.erroriTermo++;
                 
                 let arena = document.getElementById('arena');
                 let fuoco = document.createElement('div');
-                fuoco.className = `${pianetaSelezionato.css} anim-evaporate`;
+                fuoco.className = `celestial ${pianetaSelezionato.css} anim-evaporate`;
+                
+                // Centra l'esplosione esattamente sull'orbita (in alto)
+                fuoco.style.top = `calc(50% - ${parseInt(sizes[orbitIndex])/2}%)`;
+                fuoco.style.left = '50%';
+                
                 arena.appendChild(fuoco);
                 setTimeout(() => fuoco.remove(), 800);
                 
@@ -367,16 +374,17 @@
             let existingNode = document.getElementById('node-orbit-' + orbitIndex);
             if(existingNode) existingNode.remove();
 
-            let sizes = { 1: '35%', 2: '55%', 3: '75%', 4: '92%' };
             let speeds = { 1: '4s', 2: '7s', 3: '11s', 4: '15s' };
 
+            // Il contenitore viene allineato e bloccato in base al cerchio dell'orbita
             let node = document.createElement('div');
             node.id = 'node-orbit-' + orbitIndex;
-            node.className = 'planet-node';
-            node.style.animationDuration = speeds[orbitIndex];
+            node.style.cssText = `position: absolute; top: 50%; left: 50%; width: ${sizes[orbitIndex]}; height: ${sizes[orbitIndex]}; transform: translate(-50%, -50%); z-index: 25; pointer-events: none;`;
+            
+            // Il figlio gira su se stesso, portandosi appresso il pianeta attaccato in "top:0"
             node.innerHTML = `
-                <div style="position: absolute; top: calc(50% - ${parseInt(sizes[orbitIndex])/2}%); left: 50%; transform: translate(-50%, -50%);">
-                    <div class="celestial ${pianetaSelezionato.css}"></div>
+                <div style="width: 100%; height: 100%; animation: orbitRotate ${speeds[orbitIndex]} linear infinite;">
+                    <div class="celestial ${pianetaSelezionato.css}" style="top: 0; left: 50%; transform: translate(-50%, -50%);"></div>
                 </div>
             `;
             layer.appendChild(node);
