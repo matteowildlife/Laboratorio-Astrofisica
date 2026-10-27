@@ -346,43 +346,71 @@
         }
 
         const testoDirettrice = `"Benvenuti ad ALMA, nel cuore del deserto di Atacama. Sapete perché vi abbiamo fatto arrivare fin quassù, a cinquemila metri di quota?\n\nPerché i supercomputer non bastano più. Stiamo captando una mole di dati senza precedenti da nuovi sistemi stellari e ci servono menti fresche e intuizioni umane per decifrarli. Siete qui per darci una mano.\n\nMa prima di affidarvi gli strumenti di osservazione più sensibili e complessi del pianeta, voglio essere sicura che abbiate basi solide. Per secoli, persino le menti più brillanti si sono lasciate ingannare dalle apparenze: Tolomeo si era illuso che la Terra fosse immobile al centro di tutto. È dovuto arrivare Copernico per rimettere il Sole al suo posto, spiegandoci finalmente l'illusione ottica di quei pianeti che sembrano fare 'marcia indietro' nel cielo. Per non parlare di Brahe, che elaborò un complesso modello ibrido pur di non abbandonare le vecchie certezze...\n\nOltre alla geometria, ricordatevi la regola d'oro: quando nasce un sistema planetario, è la stella centrale a dettare legge. Sprigionando un'energia immensa, la stella agisce come un gigantesco filtro cosmico. Il suo calore spazza via i materiali leggeri, selezionando e lasciando sopravvivere nelle orbite interne solo le rocce più dense e pesanti. Per permettere ai gas di addensarsi e formare pianeti giganti, dovete allontanarvi dalla sua furia, nel buio e nel freddo, oltre quella barriera invisibile che noi chiamiamo la 'Linea del Gelo'.\n\nSe vi sentite all'altezza, il vostro primo vero incarico vi aspetta nella Sala Radar. Dimostratemi di che pasta siete fatti."`;
-        let typeIndex = 0; let isTyping = false;
+let typeIndex = 0; 
+        let isTyping = false;
+        let isPaused = false;
+        let typeTimer;
+
+        function togglePausa() {
+            let audio = document.getElementById('audio-direttrice');
+            let btnPausa = document.getElementById('btn-pausa');
+            if(!isTyping) return;
+
+            if(!isPaused) {
+                // METTI IN PAUSA
+                isPaused = true;
+                audio.pause();
+                clearTimeout(typeTimer); // Ferma il testo
+                btnPausa.innerHTML = "▶️ RIPRENDI";
+                btnPausa.classList.replace('bg-yellow-500', 'bg-green-500');
+                btnPausa.classList.replace('border-yellow-900', 'border-green-900');
+            } else {
+                // RIPRENDI
+                isPaused = false;
+                audio.play();
+                typeWriter(); // Fai ripartire il testo
+                btnPausa.innerHTML = "⏸️ PAUSA";
+                btnPausa.classList.replace('bg-green-500', 'bg-yellow-500');
+                btnPausa.classList.replace('border-green-900', 'border-yellow-900');
+            }
+        }
 
         function avviaTrasmissione() {
             if(isTyping) return; isTyping = true;
             document.getElementById('btn-ricevi').classList.add('hidden'); 
+            document.getElementById('btn-pausa').classList.remove('hidden'); // Mostra il tasto pausa
             document.getElementById('testo-battuto').innerHTML = "Sincronizzazione segnale audio...";
             
             let audio = document.getElementById('audio-direttrice'); 
             
-            // Il testo parte SOLO quando l'audio inizia effettivamente a suonare
             audio.onplaying = function() {
                 document.getElementById('testo-battuto').innerHTML = "";
-                typeWriter();
+                // Ritardo di 400ms per compensare il silenzio all'inizio del file mp3!
+                setTimeout(typeWriter, 400);
+                audio.onplaying = null; // Evita bug se si mette in pausa
             };
 
             audio.play().catch(e => { 
-                console.log("Audio bloccato dal browser. Faccio partire il testo in modalità muta."); 
+                console.log("Audio bloccato dal browser."); 
                 document.getElementById('testo-battuto').innerHTML = "";
                 typeWriter();
             });
-            
-            function typeWriter() {
-                if (typeIndex < testoDirettrice.length) {
-                    let char = testoDirettrice.charAt(typeIndex);
-                    document.getElementById('testo-battuto').innerHTML += (char === '\n') ? '<br>' : char;
-                    typeIndex++; 
-                    
-                    let box = document.getElementById('box-direttrice');
-                    box.scrollTop = box.scrollHeight;
-                    
-                    // VELOCITÀ TESTO: 35 millisecondi per lettera. 
-                    // Se il testo finisce troppo prima dell'audio alzalo a 40 o 45. Se è lento abbassalo a 25.
-                    setTimeout(typeWriter, 35); 
-                } else { 
-                    document.getElementById('btn-vai-fase2').disabled = false; 
-                    document.getElementById('btn-vai-fase2').classList.remove('opacity-50', 'cursor-not-allowed'); 
-                }
+        }
+
+        function typeWriter() {
+            if (typeIndex < testoDirettrice.length) {
+                let char = testoDirettrice.charAt(typeIndex);
+                document.getElementById('testo-battuto').innerHTML += (char === '\n') ? '<br>' : char;
+                typeIndex++; 
+                
+                let box = document.getElementById('box-direttrice');
+                box.scrollTop = box.scrollHeight;
+                
+                typeTimer = setTimeout(typeWriter, 38); 
+            } else { 
+                document.getElementById('btn-pausa').classList.add('hidden'); // Nascondi pausa alla fine
+                document.getElementById('btn-vai-fase2').disabled = false; 
+                document.getElementById('btn-vai-fase2').classList.remove('opacity-50', 'cursor-not-allowed'); 
             }
         }
 
