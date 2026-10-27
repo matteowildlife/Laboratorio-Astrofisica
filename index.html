@@ -17,6 +17,10 @@
         .btn-gta:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px #000; }
         .btn-gta:disabled { background: #475569; color: #94a3b8; border-color: #1e293b; box-shadow: none; transform: none; cursor: not-allowed; }
 
+        /* NASCONDI SCROLLBAR FASE 1 */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
         /* MOTORE GRAFICO RADAR (FASE 2) */
         .radar-screen { position: relative; width: 100%; aspect-ratio: 1 / 1; background: radial-gradient(circle, #022c22 0%, #020617 100%); border: 4px solid #10b981; border-radius: 50%; overflow: hidden; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4) inset; }
         .radar-scan { position: absolute; top: 50%; left: 50%; width: 50%; height: 50%; background: linear-gradient(45deg, rgba(16,185,129,0) 40%, rgba(16,185,129,0.8) 100%); transform-origin: top left; animation: radarSpin 4s linear infinite; z-index: 10; pointer-events: none; }
@@ -70,6 +74,12 @@
         .stamp-approva:hover, .stamp-approva.active { background: #16a34a; color: white; transform: rotate(-3deg); }
         .stamp-boccia { color: #dc2626; border-color: #dc2626; }
         .stamp-boccia:hover, .stamp-boccia.active { background: #dc2626; color: white; transform: rotate(3deg); }
+        
+        /* SOVRASCRITTURE ACCESSIBILITÀ */
+        body.dyslexia-font, body.dyslexia-font * { font-family: 'Lexend', 'OpenDyslexic', system-ui, sans-serif !important; letter-spacing: 0.05em !important; line-height: 1.6 !important; }
+        body.high-contrast { background: #000 !important; }
+        body.high-contrast .panel-gta { background: #000 !important; border-color: #ff0 !important; box-shadow: none !important; }
+        body.high-contrast .text-yellow-500, body.high-contrast .text-yellow-400 { color: #ff0 !important; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center p-3 md:p-6 bg-[url('https://www.eso.org/public/archives/images/large/eso1312a.jpg')] bg-cover bg-fixed bg-center relative">
@@ -105,7 +115,8 @@
     <main id="fase-1" class="hidden w-full max-w-5xl panel-gta p-4 md:p-6 mb-8 flex-col md:flex-row gap-6 z-10">
         <div class="w-full md:w-1/2 flex flex-col">
             <div class="border-4 border-slate-900 rounded-lg overflow-hidden bg-black aspect-video relative shadow-inner">
-                <img src="direttrice.jpg" alt="Direttrice" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80'">
+                <!-- Nuova foto Direttrice -->
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80" alt="Direttrice" class="w-full h-full object-cover">
                 <div class="absolute bottom-2 left-2 text-xs text-yellow-400 font-bold bg-slate-900/90 p-1 px-2 border border-slate-700">🎙️ IN TRASMISSIONE...</div>
             </div>
             <audio id="audio-direttrice"><source src="direttrice.mp3" type="audio/mpeg"></audio>
@@ -114,7 +125,8 @@
         <div class="w-full md:w-1/2 flex flex-col justify-between">
             <div>
                 <h2 class="text-4xl text-yellow-500 font-gta mb-2">BENVENUTI RECLUTE</h2>
-                <div class="text-sm text-green-400 font-bold leading-relaxed bg-slate-950 p-4 rounded border-2 border-slate-700 h-64 overflow-y-auto shadow-inner">
+                <!-- Aggiunto id="box-direttrice" e la classe hide-scrollbar -->
+                <div id="box-direttrice" class="text-sm text-green-400 font-bold leading-relaxed bg-slate-950 p-4 rounded border-2 border-slate-700 h-64 overflow-y-auto hide-scrollbar shadow-inner">
                     <div id="testo-battuto">Connessione in attesa... Clicca "Ricevi Trasmissione".</div>
                 </div>
             </div>
@@ -137,38 +149,28 @@
         <button id="btn-radar" type="button" onclick="validaRadar()" class="btn-gta w-full md:w-auto md:px-12 py-2 mx-auto block">DECRIPTA I SISTEMI</button>
     </main>
 
-    <!-- FASE 3: LABORATORIO TERMODINAMICO CORRETTO -->
+    <!-- FASE 3: LABORATORIO TERMODINAMICO -->
     <main id="fase-3" class="hidden w-full max-w-6xl panel-gta p-4 md:p-6 mb-8 z-10 flex-col lg:flex-row gap-6">
-        
-        <!-- Colonna Sinistra: Arena Visiva -->
         <div class="w-full lg:w-2/3 flex flex-col items-center">
             <h2 class="text-3xl text-yellow-500 font-gta mb-2 w-full">SIMULATORE NEBULARE SOLARE</h2>
             <p class="text-xs text-slate-300 mb-4 w-full"><strong>1.</strong> Posiziona la Linea del Gelo a <strong>4 UA</strong>. <strong>2.</strong> Clicca su un pianeta nel roster a destra. <strong>3.</strong> Clicca su un'orbita concentrica nell'arena per lanciarlo.</p>
             
             <div class="termo-arena" id="arena">
-                <!-- Sole Centrale -->
                 <div class="termo-sun"></div>
-                
-                <!-- Anelli delle 4 Orbite (Visivi) -->
                 <div class="termo-orbit-ring" style="width: 35%; height: 35%;"></div>
                 <div class="termo-orbit-ring" style="width: 55%; height: 55%;"></div>
                 <div class="termo-orbit-ring" style="width: 75%; height: 75%;"></div>
                 <div class="termo-orbit-ring" style="width: 92%; height: 92%;"></div>
-
-                <!-- Linea del Gelo Mobile -->
                 <div id="frost-line" class="termo-frost-line" style="width: 40%; height: 40%;"></div>
 
-                <!-- Zone Cliccabili per inserire i pianeti -->
                 <div class="termo-click-zone" style="width: 35%; height: 35%;" onclick="piazzaPianeta(1)" title="Orbita 1 (1.5 UA)"></div>
                 <div class="termo-click-zone" style="width: 55%; height: 55%;" onclick="piazzaPianeta(2)" title="Orbita 2 (3 UA)"></div>
                 <div class="termo-click-zone" style="width: 75%; height: 75%;" onclick="piazzaPianeta(3)" title="Orbita 3 (6 UA)"></div>
                 <div class="termo-click-zone" style="width: 92%; height: 92%;" onclick="piazzaPianeta(4)" title="Orbita 4 (9 UA)"></div>
 
-                <!-- Container in cui compaiono i pianeti orbitanti -->
                 <div id="planets-layer" class="absolute inset-0 pointer-events-none z-20"></div>
             </div>
 
-            <!-- Slider Linea Gelo -->
             <div class="w-full mt-6 bg-slate-900 p-4 rounded border border-slate-700">
                 <label class="block text-cyan-400 font-bold mb-2 font-gta text-xl">RAGGIO LINEA DEL GELO: <span id="valore-ua" class="text-white">2</span> UA</label>
                 <input type="range" id="slider-gelo" min="1" max="10" value="2" class="w-full accent-cyan-400 cursor-pointer" oninput="aggiornaLineaGelo(this.value)">
@@ -178,12 +180,10 @@
             </div>
         </div>
 
-        <!-- Colonna Destra: Roster Protopianeti -->
         <div class="w-full lg:w-1/3 flex flex-col justify-between">
             <div>
                 <h3 class="text-2xl text-white font-gta mb-4 bg-slate-800 p-2 text-center rounded">ROSTER PROTOPIANETI</h3>
                 <p class="text-xs text-slate-400 mb-3">Seleziona quale corpo celeste vuoi testare:</p>
-                
                 <div class="space-y-3" id="roster-container">
                     <div id="card-p1" class="roster-planet bg-slate-900 p-3 rounded flex items-center gap-4" onclick="selezionaPianeta('p1', this)">
                         <div class="w-6 h-6 rounded-full p-roccia"></div>
@@ -192,7 +192,6 @@
                             <p class="text-[10px] text-slate-400">95% Silicati, 5% Gas | Densità: 5.5</p>
                         </div>
                     </div>
-
                     <div id="card-p2" class="roster-planet bg-slate-900 p-3 rounded flex items-center gap-4" onclick="selezionaPianeta('p2', this)">
                         <div class="w-7 h-7 rounded-full p-misto"></div>
                         <div class="flex-1">
@@ -200,7 +199,6 @@
                             <p class="text-[10px] text-slate-400">70% Roccia, 30% Ghiaccio | Densità: 3.2</p>
                         </div>
                     </div>
-
                     <div id="card-p3" class="roster-planet bg-slate-900 p-3 rounded flex items-center gap-4" onclick="selezionaPianeta('p3', this)">
                         <div class="w-10 h-10 rounded-full p-gas"></div>
                         <div class="flex-1">
@@ -208,7 +206,6 @@
                             <p class="text-[10px] text-slate-400">10% Roccia, 90% Idrogeno | Densità: 1.1</p>
                         </div>
                     </div>
-
                     <div id="card-p4" class="roster-planet bg-slate-900 p-3 rounded flex items-center gap-4" onclick="selezionaPianeta('p4', this)">
                         <div class="w-9 h-9 rounded-full p-ice"></div>
                         <div class="flex-1">
@@ -218,7 +215,6 @@
                     </div>
                 </div>
             </div>
-
             <div>
                 <div id="feedback-fase3" class="hidden mt-4 p-3 rounded font-bold text-center border-2 text-sm"></div>
                 <button id="btn-termo" type="button" onclick="validaTermodinamica()" class="mt-4 btn-gta w-full py-2">ESEGUI COLLAUDO SISTEMA</button>
@@ -266,9 +262,6 @@
             { id: 8, testo: "Nel modello Geocentrico, il pianeta più interno situato tra noi e la stella apparirebbe perennemente pieno e illuminato.", corretta: "boccia" }
         ];
 
-        function toggleDSA() { document.body.classList.toggle('dyslexia-font'); }
-        function toggleContrast() { document.body.classList.toggle('high-contrast'); }
-
         function effettuaLogin() {
             let n = document.getElementById('input-name').value.trim(); let c = document.getElementById('input-class').value.trim();
             if(!n || !c) { alert("Inserisci Nome e Classe."); return; }
@@ -284,12 +277,22 @@
             if(isTyping) return; isTyping = true;
             document.getElementById('btn-ricevi').classList.add('hidden'); document.getElementById('testo-battuto').innerHTML = "";
             let audio = document.getElementById('audio-direttrice'); audio.play().catch(e => {});
+            
             function typeWriter() {
                 if (typeIndex < testoDirettrice.length) {
                     let char = testoDirettrice.charAt(typeIndex);
                     document.getElementById('testo-battuto').innerHTML += (char === '\n') ? '<br>' : char;
-                    typeIndex++; setTimeout(typeWriter, 25);
-                } else { document.getElementById('btn-vai-fase2').disabled = false; document.getElementById('btn-vai-fase2').classList.remove('opacity-50', 'cursor-not-allowed'); }
+                    typeIndex++; 
+                    
+                    // L'AUTO-SCROLL IN BASSO
+                    let box = document.getElementById('box-direttrice');
+                    box.scrollTop = box.scrollHeight;
+                    
+                    setTimeout(typeWriter, 25);
+                } else { 
+                    document.getElementById('btn-vai-fase2').disabled = false; 
+                    document.getElementById('btn-vai-fase2').classList.remove('opacity-50', 'cursor-not-allowed'); 
+                }
             }
             typeWriter();
         }
@@ -309,7 +312,6 @@
             }
         }
 
-        /* FASE 3: LOGICA AGGIORNATA */
         function aggiornaLineaGelo(val) {
             currentFrostUa = parseInt(val);
             document.getElementById('valore-ua').innerText = currentFrostUa;
@@ -342,7 +344,6 @@
             let orbitUa = { 1: 1.5, 2: 3, 3: 6, 4: 9 }[orbitIndex];
             let isHot = orbitUa <= currentFrostUa;
             
-            // Se gassoso in zona calda -> Evapora
             if(pianetaSelezionato.gas > 50 && isHot) {
                 fb.className = "mt-4 p-3 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block";
                 fb.innerHTML = `🔥 ERRORE FISICO! Il ${pianetaSelezionato.name} (ricco di gas) è troppo vicino al Sole e <strong>è evaporato</strong>!`;
@@ -362,7 +363,6 @@
             fb.className = "hidden";
             posizioniOrbita[orbitIndex] = pianetaSelezionato.id;
             
-            // Disegna il pianeta nell'orbita corretta con rotazione fluida
             let layer = document.getElementById('planets-layer');
             let existingNode = document.getElementById('node-orbit-' + orbitIndex);
             if(existingNode) existingNode.remove();
@@ -381,7 +381,6 @@
             `;
             layer.appendChild(node);
 
-            // Segna come completato nel roster
             let card = document.getElementById('card-' + pianetaSelezionato.id);
             if(card) { card.style.opacity = '0.3'; card.style.pointerEvents = 'none'; }
 
@@ -419,7 +418,6 @@
             }, 2500);
         }
 
-        /* FASE 4: PAPER */
         let rispostePaper = {};
         function renderPaperTesi() {
             let html = "";
