@@ -188,6 +188,7 @@
             <audio id="audio-direttrice"><source src="direttrice.mp3" type="audio/mpeg"></audio>
             <audio id="audio-radar"><source src="istruzioni_radar.mp3" type="audio/mpeg"></audio>
 <audio id="audio-orbite"><source src="orbite_completate.mp3" type="audio/mpeg"></audio>
+            <audio id="audio-termo"><source src="istruzioni_termo.mp3" type="audio/mpeg"></audio>
             
             <div class="flex gap-2 mt-3 w-full">
                 <button id="btn-ricevi" type="button" onclick="avviaTrasmissione()" class="btn-gta py-2 bg-blue-500 border-blue-900 text-white w-full">RICEVI TRASMISSIONE 🔊</button>
@@ -538,9 +539,10 @@ let typeIndex = 0;
             fb.innerText = "DECRIPTAZIONE COMPLETATA! Accesso al laboratorio termodinamico...";
             document.getElementById('btn-radar').disabled = true;
             
-            setTimeout(() => { 
+           setTimeout(() => { 
                 document.getElementById('fase-2').classList.add('hidden'); 
                 document.getElementById('fase-3').classList.remove('hidden'); 
+                document.getElementById('audio-termo').play();
             }, 2000);
         } else {
             sessionData.erroriRadar++; scalaVita();
