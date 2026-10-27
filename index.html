@@ -350,9 +350,22 @@
 
         function avviaTrasmissione() {
             if(isTyping) return; isTyping = true;
-            document.getElementById('btn-ricevi').classList.add('hidden'); document.getElementById('testo-battuto').innerHTML = "";
+            document.getElementById('btn-ricevi').classList.add('hidden'); 
+            document.getElementById('testo-battuto').innerHTML = "Sincronizzazione segnale audio...";
+            
             let audio = document.getElementById('audio-direttrice'); 
-            audio.play().catch(e => { console.log("Audio non partito in automatico."); });
+            
+            // Il testo parte SOLO quando l'audio inizia effettivamente a suonare
+            audio.onplaying = function() {
+                document.getElementById('testo-battuto').innerHTML = "";
+                typeWriter();
+            };
+
+            audio.play().catch(e => { 
+                console.log("Audio bloccato dal browser. Faccio partire il testo in modalità muta."); 
+                document.getElementById('testo-battuto').innerHTML = "";
+                typeWriter();
+            });
             
             function typeWriter() {
                 if (typeIndex < testoDirettrice.length) {
@@ -363,13 +376,14 @@
                     let box = document.getElementById('box-direttrice');
                     box.scrollTop = box.scrollHeight;
                     
-                    setTimeout(typeWriter, 25);
+                    // VELOCITÀ TESTO: 35 millisecondi per lettera. 
+                    // Se il testo finisce troppo prima dell'audio alzalo a 40 o 45. Se è lento abbassalo a 25.
+                    setTimeout(typeWriter, 35); 
                 } else { 
                     document.getElementById('btn-vai-fase2').disabled = false; 
                     document.getElementById('btn-vai-fase2').classList.remove('opacity-50', 'cursor-not-allowed'); 
                 }
             }
-            typeWriter();
         }
 
         function avviaFase2() { let audio = document.getElementById('audio-direttrice'); if(audio) audio.pause(); document.getElementById('fase-1').classList.remove('flex'); document.getElementById('fase-1').classList.add('hidden'); document.getElementById('fase-2').classList.remove('hidden'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
