@@ -272,17 +272,26 @@
     </main>
 
     <!-- FASE 4: PAPER ACCADEMICO -->
-    <main id="fase-4" class="hidden w-full max-w-4xl academic-paper p-6 md:p-12 mb-12 z-10 mt-8 relative">
-        <div class="flex justify-between items-start border-b-2 border-black pb-4 mb-6">
-            <div><p class="text-sm font-bold uppercase tracking-widest text-gray-500">ALMA Exoplanet Archive</p><p class="text-xs text-gray-500">Pre-print Submission</p></div>
-            <div class="text-right"><p class="text-sm font-bold">Paper ID: KPLR-X-001</p><p class="text-xs">Autore IA: Sistema Core</p></div>
+   <main id="fase-4" class="hidden w-full max-w-6xl panel-gta p-4 md:p-6 mb-8 z-10 bg-slate-200 text-slate-900">
+        
+        <!-- INTESTAZIONE PAPER UFFICIALE -->
+        <div class="border-b-4 border-slate-900 pb-4 mb-6">
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-center uppercase tracking-widest text-slate-900">Relazione Ufficiale - Sistema KEP-45</h2>
+            <p class="text-center text-sm md:text-base font-bold text-slate-600 mb-4">Dipartimento di Astrofisica - Osservatorio ALMA</p>
+            
+            <div class="flex flex-col md:flex-row gap-4 items-center bg-white p-4 border-2 border-slate-400 shadow-inner">
+                <!-- IMMAGINE DEL SISTEMA STELLARE -->
+                <img src="sistema_stellare.jpg" alt="Sistema KEP-45" class="w-full md:w-1/3 border-2 border-slate-800 object-cover aspect-video">
+                
+                <div class="text-sm md:text-base font-serif leading-relaxed text-justify">
+                    <p class="mb-2"><strong>Oggetto:</strong> Analisi orbitale e termodinamica del sistema esoplanetario KEP-45.</p>
+                    <p class="mb-2"><strong>Contesto:</strong> Sulla base delle rilevazioni radar e delle dinamiche orbitali calibrate nelle fasi precedenti, è richiesta la stesura del referto finale.</p>
+                    <p><strong>Direttiva:</strong> Valida le seguenti ipotesi scientifiche. Apponi il timbro di convalida solo sulle tesi corrette. Qualsiasi errore comporterà la reiezione del documento e la necessità di rivedere i dati grezzi.</p>
+                </div>
+            </div>
         </div>
-        <h1 class="paper-title text-2xl md:text-4xl mb-4">Anomalous Orbital and Thermodynamic Dynamics in the Kepler-X System</h1>
-        <div class="mb-8 text-sm md:text-base leading-relaxed text-justify">
-            <p class="font-bold mb-2">Abstract.</p>
-            <p class="mb-4">Il presente manoscritto raccoglie le osservazioni preliminari generate automaticamente sul sistema esoplanetario Kepler-X. L'IA ha sintetizzato 8 tesi cardine riguardanti la densità planetaria e l'evoluzione termodinamica.</p>
-            <p class="italic text-red-700 font-bold bg-red-100 p-2 rounded">ATTENZIONE REVISORE: Vidimare ogni singola tesi prima dell'autorizzazione alla pubblicazione.</p>
-        </div>
+
+        <!-- Qui sotto iniziano le 8 tesi che hai già nel codice... -->
         <div id="theses-paper-container" class="space-y-6 mb-12 border-t border-gray-300 pt-6"></div>
         <div id="feedback-fase4" class="hidden mb-6 p-4 font-bold text-center border-2 text-lg uppercase font-gta"></div>
         <div class="flex flex-col items-center border-t-2 border-black pt-6">
