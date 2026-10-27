@@ -389,7 +389,7 @@ let typeIndex = 0;
             audio.onplaying = function() {
                 document.getElementById('testo-battuto').innerHTML = "";
                 // Ritardo di 400ms per compensare il silenzio all'inizio del file mp3!
-                setTimeout(typeWriter, 400);
+                setTimeout(typeWriter, 1200);
                 audio.onplaying = null; // Evita bug se si mette in pausa
             };
 
