@@ -553,7 +553,7 @@
             fb.innerHTML = `PAPER ACCETTATO E PUBBLICATO! Tempo: ${tempoTotale}s.`;
             document.getElementById('btn-finale').disabled = true;
             
-            // PREPARA IL PAYLOAD PER GOOGLE SHEETS
+            // --- INCOLLA QUI IL BLOCCO PER GOOGLE SHEETS ---
             let payload = {
                 modulo: "Modulo 1 - Astrofisica",
                 badge: sessionData.badge,
@@ -564,7 +564,19 @@
                 err_test_finale: sessionData.erroriTest,
                 timestamp: new Date().toISOString()
             };
-            console.log("Invio dati a Google: ", payload);
+
+            if (typeof SCRIPT_URL !== 'undefined' && SCRIPT_URL !== 'INSERISCI_QUI_IL_TUO_LINK_GOOGLE_SCRIPT') {
+                fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).then(() => {
+                    console.log("Dati inviati a Google Sheets.");
+                }).catch(err => {
+                    console.error("Errore di rete:", err);
+                });
+            }
         }
         aggiornaLineaGelo(2);
     </script>
