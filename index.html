@@ -190,11 +190,56 @@
             <h2 class="text-4xl text-yellow-500 font-gta">SALA CALIBRAZIONE OTTICA</h2>
             <p class="text-sm text-slate-300">Decifra quale modello geometrico governa ciascun sistema.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div class="flex flex-col items-center"><h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA ALFA (Brahe)</h3><div class="radar-screen mb-4"><div class="radar-scan"></div><div class="celestial earth top-[50%] left-[50%]"></div><div class="orbit w-[70%] h-[70%] spin-slow"><div class="celestial sun top-0 left-[50%]"><div class="orbit w-[60px] h-[60px] spin-fast"><div class="celestial planet-red top-0 left-[50%]"></div></div></div></div></div><select id="sel-alfa" class="w-full bg-slate-900 border-2 border-slate-600 text-white p-2 font-bold"><option value="">[ CLASSIFICA ]</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option></select></div>
-            <div class="flex flex-col items-center"><h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA BETA (Tolomeo)</h3><div class="radar-screen mb-4"><div class="radar-scan"></div><div class="celestial earth top-[50%] left-[50%]"></div><div class="orbit w-[85%] h-[85%] spin-slow"><div class="celestial sun top-0 left-[50%]"></div></div><div class="orbit w-[40%] h-[40%] spin-slow"><div class="orbit w-[40px] h-[40px] spin-fast" style="top: 0; left: 50%; border: 1px solid rgba(255,0,0,0.5);"><div class="celestial planet-purple top-0 left-[50%]"></div></div></div></div><select id="sel-beta" class="w-full bg-slate-900 border-2 border-slate-600 text-white p-2 font-bold"><option value="">[ CLASSIFICA ]</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option></select></div>
-            <div class="flex flex-col items-center"><h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA GAMMA (Copernico)</h3><div class="radar-screen mb-4"><div class="radar-scan"></div><div class="celestial sun top-[50%] left-[50%]"></div><div class="orbit w-[40%] h-[40%] spin-fast"><div class="celestial earth top-0 left-[50%]"></div></div><div class="orbit w-[75%] h-[75%] spin-slow"><div class="celestial planet-red top-0 left-[50%]"></div></div></div><select id="sel-gamma" class="w-full bg-slate-900 border-2 border-slate-600 text-white p-2 font-bold"><option value="">[ CLASSIFICA ]</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option></select></div>
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <!-- 1. ALFA (Brahe) -->
+        <div class="flex flex-col items-center">
+            <h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA ALFA</h3>
+            <img src="radar_brahe1.gif" alt="Radar 1" class="w-full h-48 object-cover mb-2 border-2 border-slate-600 rounded">
+            <select id="sel-alfa" class="w-full p-2 bg-slate-900 text-yellow-400 font-bold border border-yellow-500 rounded uppercase text-center">
+                <option value="">-- Modello --</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option>
+            </select>
         </div>
+        <!-- 2. BETA (Tolomeo) -->
+        <div class="flex flex-col items-center">
+            <h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA BETA</h3>
+            <img src="radar_tolomeo1.gif" alt="Radar 2" class="w-full h-48 object-cover mb-2 border-2 border-slate-600 rounded">
+            <select id="sel-beta" class="w-full p-2 bg-slate-900 text-yellow-400 font-bold border border-yellow-500 rounded uppercase text-center">
+                <option value="">-- Modello --</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option>
+            </select>
+        </div>
+        <!-- 3. GAMMA (Copernico) -->
+        <div class="flex flex-col items-center">
+            <h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA GAMMA</h3>
+            <img src="radar_copernico1.gif" alt="Radar 3" class="w-full h-48 object-cover mb-2 border-2 border-slate-600 rounded">
+            <select id="sel-gamma" class="w-full p-2 bg-slate-900 text-yellow-400 font-bold border border-yellow-500 rounded uppercase text-center">
+                <option value="">-- Modello --</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option>
+            </select>
+        </div>
+        <!-- 4. DELTA (Copernico) -->
+        <div class="flex flex-col items-center">
+            <h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA DELTA</h3>
+            <img src="radar_copernico2.gif" alt="Radar 4" class="w-full h-48 object-cover mb-2 border-2 border-slate-600 rounded">
+            <select id="sel-delta" class="w-full p-2 bg-slate-900 text-yellow-400 font-bold border border-yellow-500 rounded uppercase text-center">
+                <option value="">-- Modello --</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option>
+            </select>
+        </div>
+        <!-- 5. EPSILON (Brahe) -->
+        <div class="flex flex-col items-center">
+            <h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA EPSILON</h3>
+            <img src="radar_brahe2.gif" alt="Radar 5" class="w-full h-48 object-cover mb-2 border-2 border-slate-600 rounded">
+            <select id="sel-epsilon" class="w-full p-2 bg-slate-900 text-yellow-400 font-bold border border-yellow-500 rounded uppercase text-center">
+                <option value="">-- Modello --</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option>
+            </select>
+        </div>
+        <!-- 6. ZETA (Tolomeo) -->
+        <div class="flex flex-col items-center">
+            <h3 class="text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA ZETA</h3>
+            <img src="radar_tolomeo2.gif" alt="Radar 6" class="w-full h-48 object-cover mb-2 border-2 border-slate-600 rounded">
+            <select id="sel-zeta" class="w-full p-2 bg-slate-900 text-yellow-400 font-bold border border-yellow-500 rounded uppercase text-center">
+                <option value="">-- Modello --</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option>
+            </select>
+        </div>
+    </div>
         <div id="feedback-fase2" class="hidden mb-4 p-3 rounded font-bold text-center border-2"></div>
         <button id="btn-radar" type="button" onclick="validaRadar()" class="btn-gta w-full md:w-auto md:px-12 py-2 mx-auto block">DECRIPTA I SISTEMI</button>
     </main>
