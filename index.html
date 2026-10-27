@@ -476,17 +476,41 @@ let typeIndex = 0;
         function avviaFase2() { let audio = document.getElementById('audio-direttrice'); if(audio) audio.pause(); document.getElementById('fase-1').classList.add('hidden'); document.getElementById('fase-2').classList.remove('hidden'); document.getElementById('audio-radar').play(); }
         function ripassoForzato() { document.getElementById('fase-2').classList.add('hidden'); document.getElementById('fase-1').classList.remove('hidden'); document.getElementById('fase-1').classList.add('flex'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-        function validaRadar() {
-            let alfa = document.getElementById('sel-alfa').value; let beta = document.getElementById('sel-beta').value; let gamma = document.getElementById('sel-gamma').value; let fb = document.getElementById('feedback-fase2');
-            if(!alfa || !beta || !gamma) { fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-yellow-900/80 border-yellow-500 text-yellow-300 block"; fb.innerText = "Classifica tutti i radar."; return; }
-            if(alfa === "Brahe" && beta === "Tolomeo" && gamma === "Copernico") {
-                fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-green-900/80 border-green-400 text-green-300 block animate-pulse"; fb.innerText = "ACCESSO SBLOCCATO.";
-                document.getElementById('btn-radar').disabled = true;
-                setTimeout(() => { document.getElementById('fase-2').classList.add('hidden'); document.getElementById('fase-3').classList.remove('hidden'); document.getElementById('fase-3').classList.add('flex'); window.scrollTo({ top: 0, behavior: 'smooth' }); }, 2000);
-            } else {
-                sessionData.erroriRadar++; fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block"; fb.innerHTML = "ERRORE. Riascolta la Direttrice."; setTimeout(ripassoForzato, 3500);
-            }
+       function validaRadar() {
+        let alfa = document.getElementById('sel-alfa').value;
+        let beta = document.getElementById('sel-beta').value;
+        let gamma = document.getElementById('sel-gamma').value;
+        let delta = document.getElementById('sel-delta').value;
+        let epsilon = document.getElementById('sel-epsilon').value;
+        let zeta = document.getElementById('sel-zeta').value;
+        
+        let fb = document.getElementById('feedback-fase2');
+
+        if(!alfa || !beta || !gamma || !delta || !epsilon || !zeta) {
+            fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-yellow-900/80 border-yellow-500 text-yellow-300 block";
+            fb.innerText = "ATTENZIONE: Analizza tutti e 6 i sistemi prima di decriptare.";
+            return;
         }
+
+        // SOLUZIONE ESATTA PER I 6 RADAR:
+        // Alfa: Brahe, Beta: Tolomeo, Gamma: Copernico, Delta: Copernico, Epsilon: Brahe, Zeta: Tolomeo
+        if(alfa === "Brahe" && beta === "Tolomeo" && gamma === "Copernico" && 
+           delta === "Copernico" && epsilon === "Brahe" && zeta === "Tolomeo") {
+            
+            fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-green-900/80 border-green-400 text-green-300 block animate-pulse";
+            fb.innerText = "DECRIPTAZIONE COMPLETATA! Accesso al laboratorio termodinamico...";
+            document.getElementById('btn-radar').disabled = true;
+            
+            setTimeout(() => { 
+                document.getElementById('fase-2').classList.add('hidden'); 
+                document.getElementById('fase-3').classList.remove('hidden'); 
+            }, 2000);
+        } else {
+            sessionData.erroriRadar++;
+            fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block";
+            fb.innerText = "ERRORE DI CALIBRAZIONE! I modelli non coincidono con i tracciati radar. Riprova.";
+        }
+    }
 
         function aggiornaLineaGelo(val) {
             currentFrostUa = parseInt(val);
