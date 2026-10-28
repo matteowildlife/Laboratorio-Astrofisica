@@ -234,18 +234,18 @@
             <select id="sel-alfa" class="w-full p-2 bg-slate-900 text-yellow-400 font-bold border border-yellow-500 rounded uppercase text-center"><option value="">-- Modello --</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option></select>
         </div>
 
-        <!-- 2. BETA (Tolomeo: Terra fissa. Sole orbita. Pianeta rosso su epiciclo largo) -->
+       <!-- 2. BETA (Tolomeo corretto) -->
         <div class="flex flex-col items-center">
             <h3 class="text-xl md:text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA BETA</h3>
             <div class="relative w-full h-48 bg-slate-950 border-2 border-slate-700 rounded overflow-hidden flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(34,197,94,0.1)]">
                 <div class="absolute w-[200%] h-[200%] rounded-full opacity-50 pointer-events-none animate-spin" style="background: conic-gradient(from 0deg, transparent 75%, rgba(34,197,94,0.3) 100%); animation-duration: 3.5s;"></div>
-                <div class="absolute w-5 h-5 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.8)] z-10"></div>
-                <div class="absolute w-20 h-20 border border-green-500/30 rounded-full animate-spin" style="animation-duration: 5s;">
-                    <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-yellow-400 rounded-full"></div>
+                <div class="absolute w-4 h-4 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.8)] z-10"></div>
+                <div class="absolute w-20 h-20 border border-green-500/30 rounded-full animate-spin" style="animation-duration: 5s; animation-timing-function: linear;">
+                    <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-yellow-400 rounded-full"></div>
                 </div>
-               <div class="absolute w-36 h-36 border border-green-500/30 rounded-full animate-spin" style="animation-duration: 9s; animation-timing-function: linear;">
-                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-8 h-8 border border-dashed border-red-500/50 rounded-full animate-spin" style="animation-duration: 2s; animation-timing-function: linear;">
-                        <div class="absolute -top-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-red-400 rounded-full"></div>
+                <div class="absolute w-32 h-32 border border-green-500/30 rounded-full animate-spin" style="animation-duration: 9s; animation-timing-function: linear;">
+                    <div class="absolute -top-2.5 left-1/2 transform -translate-x-1/2 w-6 h-6 border border-dashed border-red-500/50 rounded-full animate-spin" style="animation-duration: 2s; animation-timing-function: linear;">
+                        <div class="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-red-400 rounded-full"></div>
                     </div>
                 </div>
             </div>
@@ -307,24 +307,28 @@
             <select id="sel-epsilon" class="w-full p-2 bg-slate-900 text-yellow-400 font-bold border border-yellow-500 rounded uppercase text-center"><option value="">-- Modello --</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option></select>
         </div>
 
-        <!-- 6. ZETA (Tolomeo Invertito: Epiciclo verde stretto all'interno, Sole lontanissimo) -->
+        <!-- 6. ZETA (Tolomeo Invertito corretto) -->
         <div class="flex flex-col items-center">
             <h3 class="text-xl md:text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA ZETA</h3>
             <div class="relative w-full h-48 bg-slate-950 border-2 border-slate-700 rounded overflow-hidden flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(34,197,94,0.1)]">
                 <div class="absolute w-[200%] h-[200%] rounded-full opacity-50 pointer-events-none animate-spin" style="background: conic-gradient(from 0deg, transparent 75%, rgba(34,197,94,0.3) 100%); animation-duration: 2.7s;"></div>
-                <div class="absolute w-6 h-6 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.8)] z-10"></div>
-                <div class="absolute w-24 h-24 border border-green-500/30 rounded-full animate-spin" style="animation-duration: 6s;">
-                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 border border-dashed border-red-500/50 rounded-full animate-spin" style="animation-duration: 1.5s;">
-                        <div class="absolute -top-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-green-400 rounded-full"></div>
+                <div class="absolute w-4 h-4 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.8)] z-10"></div>
+                <div class="absolute w-22 h-22 border border-green-500/30 rounded-full animate-spin" style="animation-duration: 6s; animation-timing-function: linear;">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-6 h-6 border border-dashed border-red-500/50 rounded-full animate-spin" style="animation-duration: 1.5s; animation-timing-function: linear;">
+                        <div class="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2.5 h-2.5 bg-green-400 rounded-full"></div>
                     </div>
                 </div>
-                <div class="absolute w-40 h-40 border border-green-500/30 rounded-full animate-spin" style="animation-duration: 12s;">
-                    <div class="absolute -top-2.5 left-1/2 transform -translate-x-1/2 w-5 h-5 bg-yellow-400 rounded-full shadow-[0_0_8px_rgba(250,204,21,0.8)]"></div>
+                <div class="absolute w-36 h-36 border border-green-500/30 rounded-full animate-spin" style="animation-duration: 12s; animation-timing-function: linear;">
+                    <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-yellow-400 rounded-full shadow-[0_0_8px_rgba(250,204,21,0.8)]"></div>
                 </div>
             </div>
             <select id="sel-zeta" class="w-full p-2 bg-slate-900 text-yellow-400 font-bold border border-yellow-500 rounded uppercase text-center"><option value="">-- Modello --</option><option value="Copernico">Copernico</option><option value="Tolomeo">Tolomeo</option><option value="Brahe">Brahe</option></select>
         </div>
-        
+<div class="w-full flex flex-col items-center mt-6 mb-4">
+        <div id="feedback-fase2" class="hidden mb-3 p-3 rounded font-bold text-center border-2 w-full"></div>
+        <button id="btn-radar" type="button" onclick="validaRadar()" class="btn-gta w-full md:w-1/2 py-3 bg-blue-600 border-blue-900 text-white font-bold text-lg tracking-wider shadow-lg hover:bg-blue-500 transition-all">
+            CONFERMA E DECRIPTA I SISTEMI
+        </button>
     </div>
 
     <!-- FASE 3: LABORATORIO TERMODINAMICO -->
@@ -827,9 +831,12 @@ function inviaReportFinale() {
          ========================================== -->
     
     <!-- Pulsante Fluttuante -->
-    <button onclick="document.getElementById('modal-manuale').classList.remove('hidden')" class="fixed bottom-4 right-4 z-50 bg-yellow-600 text-slate-900 font-gta font-bold py-3 px-5 rounded border-2 border-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.5)] hover:bg-yellow-400 transition-all transform hover:scale-105">
-        📋 DATABASE ALMA
+    <div class="w-full flex justify-between items-center mb-4 px-2">
+    <div id="badge-container"></div> <!-- Qui posizioneremo il badge -->
+    <button onclick="apriDatabase()" class="btn-gta px-4 py-2 bg-yellow-500 border-yellow-700 text-black font-bold text-sm shadow-lg flex items-center gap-2">
+        <span>📁 DATABASE ALMA</span>
     </button>
+</div>
 
     <!-- Finestra Modale a Scomparsa -->
     <div id="modal-manuale" class="hidden fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
