@@ -556,7 +556,10 @@ let typeIndex = 0;
             if(isTyping) return; isTyping = true;
             document.getElementById('btn-ricevi').classList.add('hidden'); 
             document.getElementById('btn-pausa').classList.remove('hidden'); // Mostra il tasto pausa
-            document.getElementById('btn-salta').classList.remove('hidden');
+           // Mostra il tasto SALTA solo se l'alunno ha già visto l'intro
+    if (localStorage.getItem('introGiaVista') === 'true') {
+        document.getElementById('btn-salta').classList.remove('hidden');
+    }
             document.getElementById('testo-battuto').innerHTML = "Sincronizzazione segnale audio...";
             
             let audio = document.getElementById('audio-direttrice'); 
