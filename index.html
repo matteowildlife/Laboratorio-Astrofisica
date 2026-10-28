@@ -724,8 +724,19 @@ let typeIndex = 0;
             layer.appendChild(node);
 
             let card = document.getElementById('card-' + pianetaSelezionato.id);
-            if(card) { card.style.opacity = '0.3'; card.style.pointerEvents = 'none'; }
+        if(card) { 
+            card.style.opacity = '0.6'; 
+            card.style.pointerEvents = 'auto'; // QUESTO SBLOCCA IL PIANETA! Ora puoi sempre ri-cliccarlo
+        }
 
+        // PREVENZIONE CLONI: Se il pianeta era già in un'altra orbita, lo rimuove dalla vecchia posizione
+        for (let i = 1; i <= 4; i++) {
+            if (i !== orbitIndex && posizioniOrbita[i] === pianetaSelezionato.id) {
+                posizioniOrbita[i] = null;
+                let nodoVecchio = document.getElementById('node-orbit-' + i);
+                if (nodoVecchio) nodoVecchio.remove();
+            }
+        }
             pianetaSelezionato = null;
             document.querySelectorAll('.roster-planet').forEach(el => el.classList.remove('selected'));
         }
