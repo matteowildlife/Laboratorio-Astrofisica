@@ -635,6 +635,7 @@ let typeIndex = 0;
         }
 
         function avviaFase2() { localStorage.setItem('introGiaVista', 'true'); let audio = document.getElementById('audio-direttrice'); if(audio) audio.pause(); document.getElementById('fase-1').classList.add('hidden'); document.getElementById('fase-2').classList.remove('hidden'); document.getElementById('audio-radar').play(); }
+        document.getElementById('hud-gioco').classList.remove('hidden');
         function ripassoForzato() { document.getElementById('fase-2').classList.add('hidden'); document.getElementById('fase-1').classList.remove('hidden'); document.getElementById('fase-1').classList.add('flex'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
        function validaRadar() {
@@ -678,7 +679,7 @@ let typeIndex = 0;
             document.getElementById('audio-termo').play();
         }, 2000);
         } else {
-            sessionData.erroriRadar++; scalaVita();
+            sessionData.erroriRadar++; applicaPenalita(2);
             fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block";
             fb.innerText = "ERRORE DI CALIBRAZIONE! I modelli non coincidono con i tracciati radar. Riprova.";
         }
