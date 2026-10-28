@@ -211,6 +211,12 @@
 
     <!-- FASE 2: RADAR -->
     <main id="fase-2" class="hidden w-full max-w-6xl panel-gta p-4 md:p-6 mb-8 z-10">
+        <!-- Pulsante Fluttuante -->
+    <div class="w-full flex justify-between items-center mb-4 px-2">
+    <div id="badge-container"></div> <!-- Qui posizioneremo il badge -->
+    <button onclick="apriDatabase()" class="btn-gta px-4 py-2 bg-yellow-500 border-yellow-700 text-black font-bold text-sm shadow-lg flex items-center gap-2">
+        <span>📁 DATABASE ALMA</span>
+    </button>
         <div class="mb-6 border-b border-slate-700 pb-4">
             <h2 class="text-4xl text-yellow-500 font-gta">SALA CALIBRAZIONE OTTICA</h2>
             <p class="text-sm text-slate-300">Decifra quale modello geometrico governa ciascun sistema.</p>
@@ -616,8 +622,8 @@ let typeIndex = 0;
 
         // SOLUZIONE ESATTA PER I 6 RADAR:
         // Alfa: Brahe, Beta: Tolomeo, Gamma: Copernico, Delta: Copernico, Epsilon: Brahe, Zeta: Tolomeo
-        if(alfa === "Brahe" && beta === "Tolomeo" && gamma === "Copernico" && 
-          fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-green-900/80 border-green-500 text-green-300 block";
+       if (alfa === "Brahe" && beta === "Tolomeo" && gamma === "Copernico" && delta === "Copernico" && epsilon === "Brahe" && zeta === "Tolomeo") {
+        fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-green-900/80 border-green-500 text-green-300 block";
         fb.innerText = "DECRIPTAZIONE COMPLETATA! Accesso al laboratorio termodinamico...";
         document.getElementById('btn-radar').disabled = true;
 
@@ -844,13 +850,7 @@ function inviaReportFinale() {
          SISTEMA APPUNTI ALMA (SEMPRE VISIBILE)
          ========================================== -->
     
-    <!-- Pulsante Fluttuante -->
-    <div class="w-full flex justify-between items-center mb-4 px-2">
-    <div id="badge-container"></div> <!-- Qui posizioneremo il badge -->
-    <button onclick="apriDatabase()" class="btn-gta px-4 py-2 bg-yellow-500 border-yellow-700 text-black font-bold text-sm shadow-lg flex items-center gap-2">
-        <span>📁 DATABASE ALMA</span>
-    </button>
-</div>
+    </div>
 
     <!-- Finestra Modale a Scomparsa -->
     <div id="modal-manuale" class="hidden fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
