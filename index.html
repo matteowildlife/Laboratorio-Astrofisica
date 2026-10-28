@@ -617,17 +617,27 @@ let typeIndex = 0;
         // SOLUZIONE ESATTA PER I 6 RADAR:
         // Alfa: Brahe, Beta: Tolomeo, Gamma: Copernico, Delta: Copernico, Epsilon: Brahe, Zeta: Tolomeo
         if(alfa === "Brahe" && beta === "Tolomeo" && gamma === "Copernico" && 
-           delta === "Copernico" && epsilon === "Brahe" && zeta === "Tolomeo") {
+          fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-green-900/80 border-green-500 text-green-300 block";
+        fb.innerText = "DECRIPTAZIONE COMPLETATA! Accesso al laboratorio termodinamico...";
+        document.getElementById('btn-radar').disabled = true;
+
+        // 1. Ferma istantaneamente l'audio della Direttrice sui radar
+        let audioRadar = document.getElementById('audio-radar');
+        audioRadar.pause();
+
+        // 2. Passaggio alla Fase 3 dopo 2 secondi
+        setTimeout(() => {
+            // Nasconde i radar
+            document.getElementById('fase-2').classList.add('hidden');
             
-            fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-green-900/80 border-green-400 text-green-300 block animate-pulse";
-            fb.innerText = "DECRIPTAZIONE COMPLETATA! Accesso al laboratorio termodinamico...";
-            document.getElementById('btn-radar').disabled = true;
+            // Mostra la Fase 3 attivando l'impaginazione flex
+            let fase3 = document.getElementById('fase-3');
+            fase3.classList.remove('hidden');
+            fase3.classList.add('flex'); // <-- Questo fa comparire tutto correttamente!
             
-           setTimeout(() => { 
-                document.getElementById('fase-2').classList.add('hidden'); 
-                document.getElementById('fase-3').classList.remove('hidden'); 
-                document.getElementById('audio-termo').play();
-            }, 2000);
+            // Avvia l'audio del laboratorio termodinamico
+            document.getElementById('audio-termo').play();
+        }, 2000);
         } else {
             sessionData.erroriRadar++; scalaVita();
             fb.className = "mb-4 p-3 rounded font-bold text-center border-2 bg-red-900/80 border-red-500 text-red-300 block";
