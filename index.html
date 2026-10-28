@@ -195,11 +195,12 @@
             <div class="flex gap-2 mt-3 w-full">
                 <button id="btn-ricevi" type="button" onclick="avviaTrasmissione()" class="btn-gta py-2 bg-blue-500 border-blue-900 text-white w-full">RICEVI TRASMISSIONE 🔊</button>
                 <button id="btn-pausa" type="button" onclick="togglePausa()" class="hidden btn-gta py-2 bg-yellow-500 border-yellow-900 text-black w-full text-lg">⏸️ PAUSA</button>
+                <button id="btn-salta" type="button" onclick="saltaDiscorso()" class="hidden btn-gta py-2 bg-slate-700 border-slate-500 text-white w-full">SALTA INTRO</button>
             </div>
         </div>
         <div class="w-full md:w-1/2 flex flex-col justify-between">
             <div>
-                <h2 class="text-4xl text-yellow-500 font-gta mb-2">BENVENUTI RECLUTE</h2>
+               <h2 class="text-4xl text-yellow-500 font-gta mb-2">BENVENUTI GIOVANI SCIENZIATI</h2>
                 <div id="box-direttrice" class="text-sm text-green-400 font-bold leading-relaxed bg-slate-950 p-4 rounded border-2 border-slate-700 h-64 overflow-y-auto hide-scrollbar shadow-inner">
                     <div id="testo-battuto">Connessione in attesa... Clicca "Ricevi Trasmissione".</div>
                 </div>
@@ -242,8 +243,8 @@
                 <div class="absolute w-20 h-20 border border-green-500/30 rounded-full animate-spin" style="animation-duration: 5s;">
                     <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-yellow-400 rounded-full"></div>
                 </div>
-                <div class="absolute w-36 h-36 border border-green-500/30 rounded-full animate-spin" style="animation-duration: 9s;">
-                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-8 h-8 border border-dashed border-red-500/50 rounded-full animate-spin" style="animation-duration: 2s;">
+               <div class="absolute w-36 h-36 border border-green-500/30 rounded-full animate-spin" style="animation-duration: 9s; animation-timing-function: linear;">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-8 h-8 border border-dashed border-red-500/50 rounded-full animate-spin" style="animation-duration: 2s; animation-timing-function: linear;">
                         <div class="absolute -top-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-red-400 rounded-full"></div>
                     </div>
                 </div>
@@ -531,11 +532,26 @@ let typeIndex = 0;
                 btnPausa.classList.replace('border-green-900', 'border-yellow-900');
             }
         }
+        function saltaDiscorso() {
+    let audio = document.getElementById('audio-direttrice');
+    audio.pause();
+    audio.currentTime = audio.duration; // porta l'audio direttamente alla fine
+    isTyping = false;
+    // Mostra tutto il testo subito senza l'effetto macchina da scrivere
+    document.getElementById('testo-battuto').innerHTML = testoDirettrice;
+    // Sblocca il pulsante per passare alla fase successiva
+    document.getElementById('btn-vai-fase2').classList.remove('opacity-50', 'cursor-not-allowed');
+    document.getElementById('btn-vai-fase2').removeAttribute('disabled');
+    // Nasconde i tasti pausa e salta una volta completato
+    document.getElementById('btn-salta').classList.add('hidden');
+    document.getElementById('btn-pausa').classList.add('hidden');
+}
 
         function avviaTrasmissione() {
             if(isTyping) return; isTyping = true;
             document.getElementById('btn-ricevi').classList.add('hidden'); 
             document.getElementById('btn-pausa').classList.remove('hidden'); // Mostra il tasto pausa
+            document.getElementById('btn-salta').classList.remove('hidden');
             document.getElementById('testo-battuto').innerHTML = "Sincronizzazione segnale audio...";
             
             let audio = document.getElementById('audio-direttrice'); 
