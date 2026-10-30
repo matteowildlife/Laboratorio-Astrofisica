@@ -524,7 +524,7 @@
     /* =====================================================
        STATO
        ===================================================== */
-    const sessionData = { badge: '', classe: '', inizioTimer: 0, erroriRadar: 0, erroriTermo: 0, erroriTest: 0 };
+    const sessionData = { badge: '', classe: '', inizioTimer: 0, erroriRadar: 0, erroriTermo: 0, erroriTest: 0, punteggio: 100, errori: 0 };
     let punteggio = CONFIG.puntiIniziali;
     let erroriTotali = 0;
     let gameOver = false;
@@ -595,6 +595,8 @@
         if (gameOver) return;
         punteggio = Math.max(0, punteggio - punti);
         erroriTotali++;
+        sessionData.punteggio = punteggio;
+    sessionData.errori = erroriTotali;
 
         const display = $('display-punteggio');
         display.textContent = punteggio;
@@ -829,6 +831,7 @@
     }
 
     function animaEvaporazione(orbitIndex, css) {
+        applicaPenalita(3);
         const fuoco = document.createElement('div');
         fuoco.className = `celestial ${css} anim-evaporate`;
         fuoco.style.top = `calc(50% - ${parseFloat(ORBITE[orbitIndex].size) / 2}%)`;
