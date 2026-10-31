@@ -482,6 +482,9 @@
        ===================================================== */
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzVNVTosWNbs3szSbMO5WzPgBWIFOjzNUovKdzp0LzAMItDDMAGGVojB0XPfmEWk7-vMQ/exec';
 
+        const parametriUrl = new URLSearchParams(window.location.search);
+const tokenClasse = parametriUrl.get('token') || 'demo_keynes';
+
     const CONFIG = {
         puntiIniziali: 100,
         gameOverErrori: 12,
@@ -985,12 +988,13 @@
     }
 
     /* ----- Consegna ----- */
-    function inviaTelemetria(payload) {
-        if (!SCRIPT_URL || SCRIPT_URL === 'INSERISCI_QUI_IL_TUO_LINK_GOOGLE_SCRIPT') return;
-        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-            .catch(err => console.error(err));
-    }
+   function inviaTelemetria(payload) {
+    payload.token = tokenClasse;
 
+    if (!SCRIPT_URL || SCRIPT_URL === 'INSERISCI_QUI_IL_TUO_LINK_GOOGLE_SCRIPT') return;
+    fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        .catch(err => console.error(err));
+}
     function inviaReportFinale() {
         if (Object.keys(rispostePaper).length < tesi.length) {
             feedback('feedback-fase4', 'warn', `Attenzione: apponi il timbro su tutte le ${tesi.length} ipotesi prima di consegnare.`);
