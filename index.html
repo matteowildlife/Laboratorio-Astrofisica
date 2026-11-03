@@ -773,10 +773,10 @@ const tokenClasse = parametriUrl.get('token') || 'demo_keynes';
             return;
         }
 
-        const corretto = Object.keys(SOLUZIONI_RADAR).every(k => scelte[k] === SOLUZIONI_RADAR[k]);
-        if (!corretto) {
-            sessionData.erroriRadar++;
-            applicaPenalita(CONFIG.penalita.radar);
+        const erroriCalcolati = Object.keys(SOLUZIONI_RADAR).filter(k => scelte[k] !== SOLUZIONI_RADAR[k]).length;
+if (erroriCalcolati > 0) {
+    sessionData.erroriRadar++;
+    applicaPenalita(CONFIG.penalita.radar * erroriCalcolati);
             feedback('feedback-fase2', 'err', 'ERRORE DI CALIBRAZIONE! I modelli non coincidono con i tracciati radar. Riprova.');
             return;
         }
@@ -855,7 +855,6 @@ const tokenClasse = parametriUrl.get('token') || 'demo_keynes';
         if (p.gas > 50 && orbita.ua <= currentFrostUa) {
             feedback('feedback-fase3', 'err', `🔥 ERRORE FISICO! Il ${p.nome} (ricco di gas) è troppo vicino al Sole ed <strong>è evaporato</strong>!`);
             sessionData.erroriTermo++;
-            applicaPenalita(CONFIG.penalita.evaporazione);
             animaEvaporazione(orbitIndex, p.css);
             deselezionaPianeta();
             return;
@@ -1008,7 +1007,7 @@ audioReport.play();
 
         if (sbagliate > 0) {
             sessionData.erroriTest++;
-            applicaPenalita(CONFIG.penalita.paper);
+           applicaPenalita(CONFIG.penalita.paper * sbagliate);
         }
 
         inviaTelemetria({
