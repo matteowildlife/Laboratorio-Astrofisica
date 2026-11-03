@@ -212,7 +212,11 @@
             </div>
             <button type="button" onclick="tornaAlPaperSubito()" class="btn-torna-paper hidden btn-gta px-4 py-1 text-lg bg-slate-700 border-slate-500 text-white">↩ TORNA AL PAPER</button>
         </div>
-
+<!-- TRASCRIZIONE AUDIO FASE 2 -->
+<div class="bg-slate-900 border-l-4 border-blue-500 p-4 mt-4 mb-8 shadow-md w-full min-h-[120px]">
+    <p class="text-blue-400 font-bold text-xs uppercase tracking-widest mb-1 animate-pulse">Ricezione Trasmissione in corso...</p>
+    <p id="schermo-fase2" class="text-slate-300 text-sm font-mono italic"></p>
+</div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 w-full">
 
             <!-- 1. ALFA (Brahe) -->
@@ -340,7 +344,11 @@
                 <button type="button" onclick="tornaAlPaperSubito()" class="btn-torna-paper hidden btn-gta px-4 py-1 text-lg bg-slate-700 border-slate-500 text-white shrink-0">↩ TORNA AL PAPER</button>
             </div>
             <p class="text-xs text-slate-300 mb-4 w-full"><strong>1.</strong> Posiziona la Linea del Gelo a <strong>4 UA</strong>. <strong>2.</strong> Clicca su un pianeta nel roster a destra. <strong>3.</strong> Clicca su un'orbita concentrica nell'arena per lanciarlo.</p>
-
+<!-- TRASCRIZIONE AUDIO FASE 3 -->
+<div class="bg-slate-900 border-l-4 border-blue-500 p-4 mt-4 mb-6 shadow-md w-full min-h-[120px]">
+    <p class="text-blue-400 font-bold text-xs uppercase tracking-widest mb-1 animate-pulse">Ricezione Trasmissione in corso...</p>
+    <p id="schermo-fase3" class="text-slate-300 text-sm font-mono italic"></p>
+</div>
             <div class="termo-arena" id="arena">
                 <div class="termo-sun"></div>
                 <div class="termo-orbit-ring" style="width:35%; height:35%;"></div>
@@ -775,6 +783,8 @@ function scriviTestoTerminale(idElemento, testo, velocita) {
         mostra('fase-2');
         suona('audio-radar');
         scrollInAlto();
+        let testoVocale2 = "\"Inserisci qui le parole esatte del vocale del radar...\"";
+scriviTestoTerminale("schermo-fase2", testoVocale2, 45);
     }
 
     /* =====================================================
@@ -813,6 +823,8 @@ if (erroriCalcolati > 0) {
             } else {
                 mostra('fase-3');
                 suona('audio-termo');
+                let testoVocale3 = "\"Inserisci qui le parole esatte del vocale della termodinamica...\"";
+scriviTestoTerminale("schermo-fase3", testoVocale3, 45);
             }
             scrollInAlto();
         }, inRipasso ? 1200 : 2000);
@@ -946,6 +958,8 @@ if (erroriCalcolati > 0) {
             mostra('fase-4');
             let audioReport = new Audio("audio_fase4.mp3");
 audioReport.play();
+            let testoVocale4 = "Ottimo lavoro. Sei arrivato all'ultima fase di un lavoro scientifico, abbiamo raccolto i campioni e analizzato i modelli, ora bisogna convalidare il report rispetto al sistema planetario Kep-45. Esaminate attentamente i dati raccolti e convalidate o respingete le affermazioni scritte. Ricordate: un vero ricercatore deve saper scovare eventuali errori. Procedete con la convalida.";
+scriviTestoTerminale("schermo-fase4", testoVocale4, 45);
             scrollInAlto();
         }, inRipasso ? 1200 : 2500);
     }
