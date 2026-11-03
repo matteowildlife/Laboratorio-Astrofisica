@@ -972,7 +972,7 @@ scriviTestoTerminale("schermo-fase4", testoVocale4, 45);
         paperRenderizzato = true;
         $('theses-paper-container').innerHTML = tesi.map((t, i) => `
             <div class="flex flex-col md:flex-row gap-4 mb-6 pb-6 border-b border-gray-300 items-start">
-                <div class="text-sm md:text-base flex-1"><span class="font-bold mr-2">[HP.${i + 1}]</span> ${t.testo}</div>
+                <div class="text-sm md:text-base flex-1"><span class="font-bold mr-2">[TESI ${i + 1}]</span> ${t.testo}</div>
                 <div class="flex gap-2 shrink-0">
                     <button type="button" id="stamp-${t.id}-approva" onclick="apponiTimbro(${t.id}, 'approva')" class="stamp-btn stamp-approva">APPROVA</button>
                     <button type="button" id="stamp-${t.id}-boccia" onclick="apponiTimbro(${t.id}, 'boccia')" class="stamp-btn stamp-boccia">BOCCIA</button>
