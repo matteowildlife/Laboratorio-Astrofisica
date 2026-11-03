@@ -593,7 +593,23 @@ const tokenClasse = parametriUrl.get('token') || 'demo_keynes';
             box.appendChild(d);
         }
     }
-
+// Funzione per l'effetto macchina da scrivere (Terminale)
+function scriviTestoTerminale(idElemento, testo, velocita) {
+    const schermo = document.getElementById(idElemento);
+    if (!schermo) return;
+    
+    schermo.innerHTML = ""; // Pulisce lo schermo
+    let i = 0;
+    
+    const timer = setInterval(() => {
+        if (i < testo.length) {
+            schermo.innerHTML += testo.charAt(i);
+            i++;
+        } else {
+            clearInterval(timer);
+        }
+    }, velocita);
+}
     function applicaPenalita(punti) {
         if (gameOver) return;
         punteggio = Math.max(0, punteggio - punti);
