@@ -87,7 +87,11 @@
         .kep-frost { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px dashed #06b6d4; border-radius: 50%; pointer-events: none; box-shadow: 0 0 10px #06b6d4 inset, 0 0 10px #06b6d4; z-index: 10; }
         .kep-planet-btn { position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer; z-index: 20; transition: transform 0.2s, box-shadow 0.2s; pointer-events: auto; }
         .kep-planet-btn:hover { transform: translate(-50%, -50%) scale(1.5); box-shadow: 0 0 12px #fff; }
-        .kep-planet-wrapper { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; }
+       .kep-planet-wrapper { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; animation: orbita-kep var(--d) linear infinite; }
+@keyframes orbita-kep {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
         /* ===== ACCESSIBILITÀ ===== */
         body.dyslexia-font, body.dyslexia-font * { font-family: 'Lexend', system-ui, sans-serif !important; letter-spacing: 0.05em !important; line-height: 1.6 !important; }
         body.high-contrast { background: #000 !important; }
@@ -487,9 +491,11 @@
                     <div id="kep-telemetria" class="bg-slate-900 p-4 border border-slate-600 rounded min-h-[160px] font-mono text-sm text-slate-300 flex flex-col justify-center items-center text-center">
                         <span class="text-slate-500 animate-pulse">In attesa di selezione bersaglio...<br><br>Clicca su un pianeta nel radar per scaricare i dati.</span>
                     </div>
-                    <div class="mt-4 text-xs md:text-sm font-serif leading-relaxed text-justify text-slate-400">
-                        <p><strong>Direttiva:</strong> Valida le seguenti ipotesi scientifiche confrontando le Tesi con la telemetria della mappa. Apponi il timbro di convalida solo sulle tesi fisicamente corrette.</p>
-                    </div>
+                 <div class="mt-6 text-sm font-serif leading-relaxed text-justify text-slate-300 bg-slate-900/50 p-4 border border-slate-700 rounded">
+    <p class="mb-2"><strong class="text-yellow-500">Oggetto:</strong> Analisi orbitale e termodinamica del sistema esoplanetario KEP-45.</p>
+    <p class="mb-2"><strong class="text-yellow-500">Contesto:</strong> Sulla base delle rilevazioni radar e delle dinamiche orbitali calibrate nelle fasi precedenti, è richiesta la stesura del referto finale.</p>
+    <p><strong class="text-yellow-500">Direttiva:</strong> Valida le seguenti ipotesi scientifiche confrontando le Tesi con la telemetria della mappa. Apponi il timbro di convalida solo sulle tesi corrette. Qualsiasi errore comporterà la reiezione del documento.</p>
+</div>
                 </div>
             </div>
         </div>
