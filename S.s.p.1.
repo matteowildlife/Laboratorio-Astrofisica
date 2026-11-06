@@ -87,11 +87,9 @@
         .kep-frost { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px dashed #06b6d4; border-radius: 50%; pointer-events: none; box-shadow: 0 0 10px #06b6d4 inset, 0 0 10px #06b6d4; z-index: 10; }
         .kep-planet-btn { position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer; z-index: 20; transition: transform 0.2s, box-shadow 0.2s; pointer-events: auto; }
         .kep-planet-btn:hover { transform: translate(-50%, -50%) scale(1.5); box-shadow: 0 0 12px #fff; }
-       .kep-planet-wrapper { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; animation-name: orbita-kep !important; animation-duration: var(--d) !important; animation-timing-function: linear !important; animation-iteration-count: infinite !important; }
-@keyframes orbita-kep {
-    0% { transform: translate(-50%, -50%) rotate(0deg) !important; }
-    100% { transform: translate(-50%, -50%) rotate(360deg) !important; }
-}
+      .kep-planet-wrapper { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:50%; pointer-events:none; animation: orbita-kep var(--d, 10s) linear infinite; }
+@keyframes orbita-kep { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+.kep-arena:hover .kep-planet-wrapper { animation-play-state: paused; }
         /* ===== ACCESSIBILITÀ ===== */
         body.dyslexia-font, body.dyslexia-font * { font-family: 'Lexend', system-ui, sans-serif !important; letter-spacing: 0.05em !important; line-height: 1.6 !important; }
         body.high-contrast { background: #000 !important; }
@@ -194,7 +192,7 @@
             <audio id="audio-direttrice"><source src="direttrice.mp3" type="audio/mpeg"></audio>
             <audio id="audio-radar"><source src="istruzioni_radar.mp3" type="audio/mpeg"></audio>
             <audio id="audio-termo"><source src="istruzioni_termo.mp3" type="audio/mpeg"></audio>
-
+<audio id="audio-paper"><source src="audio_fase4.mp3" type="audio/mpeg"></audio>
             <div class="flex gap-2 mt-3 w-full">
                 <button id="btn-ricevi" type="button" onclick="avviaTrasmissione()" class="btn-gta py-2 bg-blue-500 border-blue-900 text-white w-full">RICEVI TRASMISSIONE 🔊</button>
                 <button id="btn-pausa" type="button" onclick="togglePausa()" class="hidden btn-gta py-2 bg-yellow-500 border-yellow-900 text-black w-full text-lg">⏸️ PAUSA</button>
@@ -227,8 +225,7 @@
     <p class="text-blue-400 font-bold text-xs uppercase tracking-widest mb-1 animate-pulse">Ricezione Trasmissione in corso...</p>
     <p id="schermo-fase2" class="text-green-400 text-sm font-bold leading-relaxed"></p>
 </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 w-full">
-
+        <div id="griglia-radar" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 w-full">
             <!-- 1. ALFA (Brahe) -->
             <div class="flex flex-col items-center">
                 <h3 class="text-xl md:text-2xl text-white font-gta mb-2 bg-slate-800 px-4 w-full text-center py-1">SISTEMA ALFA</h3>
@@ -454,32 +451,32 @@
                         <!-- Pianeti animati (Le grandezze in % si allineano alle orbite) -->
                         
                         <!-- HP-1 (0.5 UA) -->
-                        <div class="kep-planet-wrapper giro" style="width: 15%; height: 15%; --d: 3s;">
+                        <div class="kep-planet-wrapper" style="width: 15%; height: 15%; --d: 3s;">
                             <div class="kep-planet-btn w-3 h-3 p-roccia" onclick="mostraDatiKep('HP-1', '0.5 UA', 'Roccioso', '5.5', 'Nessuna anomalia termica. Posizione standard.')"></div>
                         </div>
 
                         <!-- HP-2 (1.2 UA) - ERRORE GASSOSO -->
-                        <div class="kep-planet-wrapper giro" style="width: 28%; height: 28%; --d: 5s;">
+                        <div class="kep-planet-wrapper" style="width: 28%; height: 28%; --d: 5s;">
                             <div class="kep-planet-btn w-6 h-6 p-gas" onclick="mostraDatiKep('HP-2', '1.2 UA', 'Gigante Gassoso', '1.2', 'ANOMALIA: Gas rilevati all\'interno della Frost Line. Rischio evaporazione elevato.')"></div>
                         </div>
 
                         <!-- HP-3 (2.2 UA) -->
-                        <div class="kep-planet-wrapper giro" style="width: 42%; height: 42%; --d: 8s;">
+                        <div class="kep-planet-wrapper" style="width: 42%; height: 42%; --d: 8s;">
                             <div class="kep-planet-btn w-4 h-4 p-roccia bg-amber-700" onclick="mostraDatiKep('HP-3', '2.2 UA', 'Roccioso', '4.8', 'Nessuna anomalia termica. Posizione standard.')"></div>
                         </div>
 
                         <!-- HP-4 (3.2 UA) - ERRORE GHIACCIO -->
-                        <div class="kep-planet-wrapper giro" style="width: 55%; height: 55%; --d: 12s;">
+                        <div class="kep-planet-wrapper" style="width: 55%; height: 55%; --d: 12s;">
                             <div class="kep-planet-btn w-4 h-4 p-ice" onclick="mostraDatiKep('HP-4', '3.2 UA', 'Ghiacciato', '1.6', 'ANOMALIA: Ghiaccio rilevato prima della Frost Line. Incompatibilità termodinamica.')"></div>
                         </div>
 
                         <!-- HP-5 (5.8 UA) -->
-                        <div class="kep-planet-wrapper giro" style="width: 80%; height: 80%; --d: 18s;">
+                        <div class="kep-planet-wrapper" style="width: 80%; height: 80%; --d: 18s;">
                             <div class="kep-planet-btn w-7 h-7 p-misto" style="box-shadow: 0 0 0 4px rgba(255,255,255,0.2)" onclick="mostraDatiKep('HP-5', '5.8 UA', 'Gigante Gassoso', '0.7', 'Nessuna anomalia. Formazione coerente oltre la linea del gelo.')"></div>
                         </div>
 
                         <!-- HP-6 (8.5 UA) - ERRORE ROCCIOSO -->
-                        <div class="kep-planet-wrapper giro" style="width: 95%; height: 95%; --d: 25s;">
+                        <div class="kep-planet-wrapper" style="width: 95%; height: 95%; --d: 25s;">
                             <div class="kep-planet-btn w-3 h-3 p-roccia bg-stone-500" onclick="mostraDatiKep('HP-6', '8.5 UA', 'Roccioso', '5.2', 'ANOMALIA: Alta densità rocciosa rilevata all\'estrema periferia del sistema. I gas dovrebbero dominare.')"></div>
                         </div>
                     </div>
@@ -672,21 +669,36 @@ const tokenClasse = parametriUrl.get('token') || 'demo_keynes';
         }
     }
 // Funzione per l'effetto macchina da scrivere (Terminale)
-function scriviTestoTerminale(idElemento, testo, velocita) {
-    const schermo = document.getElementById(idElemento);
-    if (!schermo) return;
+const timerTerminale = {};
+function scriviTestoTerminale(id, testo, velocita, audioId) {
+    const el = document.getElementById(id) || document.querySelector(id);
+    if (!el) return;
     
-    schermo.innerHTML = ""; // Pulisce lo schermo
-    let i = 0;
+    clearInterval(timerTerminale[id]);
+    el.textContent = '';
     
-    const timer = setInterval(() => {
-        if (i < testo.length) {
-            schermo.innerHTML += testo.charAt(i);
-            i++;
-        } else {
-            clearInterval(timer);
-        }
-    }, velocita);
+    const a = audioId ? document.getElementById(audioId) : null;
+    let partito = false;
+    
+    const parti = () => {
+        if (partito) return; 
+        partito = true;
+        
+        const ms = (a && a.duration > 0) ? Math.max(15, (a.duration * 1000 * 0.8) / testo.length) : velocita;
+        let i = 0;
+        
+        timerTerminale[id] = setInterval(() => { 
+            el.textContent = testo.slice(0, ++i); 
+            if (i >= testo.length) clearInterval(timerTerminale[id]); 
+        }, ms);
+    };
+    
+    if (a && !(a.duration > 0)) { 
+        a.addEventListener('loadedmetadata', parti, { once: true }); 
+        setTimeout(parti, 1500); 
+    } else {
+        parti();
+    }
 }
     function applicaPenalita(punti) {
         if (gameOver) return;
@@ -844,7 +856,22 @@ function scriviTestoTerminale(idElemento, testo, velocita) {
         $('testo-battuto').textContent = testoDirettrice;
         finisciIntro();
     }
-
+function mescolaRadar() {
+    const g = document.getElementById('griglia-radar');
+    mescolaRadar();
+    if (!g) return;
+    const box = Array.from(g.children);
+    for (let i = box.length - 1; i > 0; i--) { 
+        const j = Math.floor(Math.random() * (i + 1)); 
+        [box[i], box[j]] = [box[j], box[i]]; 
+    }
+    const nomi = ['ALFA','BETA','GAMMA','DELTA','EPSILON','ZETA'];
+    box.forEach((b, i) => { 
+        g.appendChild(b); 
+        b.querySelector('h3').textContent = 'SISTEMA ' + nomi[i]; 
+        b.querySelector('select').value = ''; 
+    });
+}
     function avviaFase2() {
         segnaIntroVista();
         clearTimeout(typeTimer);
@@ -1011,7 +1038,6 @@ scriviTestoTerminale("schermo-fase3", testoVocale3, 45);
         if (evaporati.length > 0) {
             feedback('feedback-fase3', 'err', `🔥 COLLAUDO FALLITO! Evaporati per il calore: <strong>${evaporati.join(', ')}</strong>. Riposizionali oltre la Linea del Gelo.`);
             sessionData.erroriTermo++;
-           applicaPenalita(CONFIG.penalita.evaporazione * evaporati.length);
             return;
         }
 
@@ -1026,10 +1052,12 @@ scriviTestoTerminale("schermo-fase3", testoVocale3, 45);
             aggiornaPulsantiRipasso();
             renderPaperTesi();
             mostra('fase-4');
-            let audioReport = new Audio("audio_fase4.mp3");
-audioReport.play();
-            let testoVocale4 = "Ottimo lavoro. Sei arrivato all'ultima fase di un lavoro scientifico, abbiamo raccolto i campioni e analizzato i modelli, ora bisogna convalidare il report rispetto al sistema planetario Kep-45. Esaminate attentamente i dati raccolti e convalidate o respingete le affermazioni scritte. Ricordate: un vero ricercatore deve saper scovare eventuali errori. Procedete con la convalida.";
-scriviTestoTerminale("schermo-fase4", testoVocale4, 45);
+          let testoVocale4 = "Ottimo lavoro. Sei arrivato all'ultima fase di un lavoro scientifico, abbiamo raccolto i campioni e analizzato i modelli, ora bisogna convalidare i dati sul terminale."; // NOTA: se il tuo testo originale era più lungo, incollalo tutto qui tra le virgolette!
+
+if (!inRipasso) {
+    suona('audio-paper');
+    scriviTestoTerminale("schermo-fase4", testoVocale4, 45, 'audio-paper');
+}
             scrollInAlto();
         }, inRipasso ? 1200 : 2500);
     }
@@ -1085,16 +1113,27 @@ scriviTestoTerminale("schermo-fase4", testoVocale4, 45);
     function aggiornaPulsantiRipasso() {
         document.querySelectorAll('.btn-torna-paper').forEach(b => b.classList.toggle('hidden', !tornaAlPaper));
     }
-
+function resetFase3() {
+    for (let i = 1; i <= 4; i++) { 
+        const id = posizioniOrbita[i]; 
+        rimuoviDaOrbita(i); 
+        if (id) ripristinaCard(id); 
+    }
+    document.getElementById('slider-gelo').value = 2; 
+    aggiornaLineaGelo(2); 
+    nascondiFeedback('feedback-fase3');
+}
     function ripassaFase(n) {
         tornaAlPaper = true;
         fermaAudio();
         nascondi('fase-4');
         if (n === 2) {
+        mescolaRadar();
             $('btn-radar').disabled = false;
             nascondiFeedback('feedback-fase2');
             mostra('fase-2');
         } else {
+        resetFase3();
             $('btn-termo').disabled = false;
             nascondiFeedback('feedback-fase3');
             mostra('fase-3');
