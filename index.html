@@ -87,7 +87,7 @@
         .kep-frost { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px dashed #06b6d4; border-radius: 50%; pointer-events: none; box-shadow: 0 0 10px #06b6d4 inset, 0 0 10px #06b6d4; z-index: 10; }
         .kep-planet-btn { position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer; z-index: 20; transition: transform 0.2s, box-shadow 0.2s; pointer-events: auto; }
         .kep-planet-btn:hover { transform: translate(-50%, -50%) scale(1.5); box-shadow: 0 0 12px #fff; }
-       .kep-planet-wrapper { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; animation: orbita-kep var(--d) linear infinite !important; }
+       .kep-planet-wrapper { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; animation-name: orbita-kep !important; animation-duration: var(--d) !important; animation-timing-function: linear !important; animation-iteration-count: infinite !important; }
 @keyframes orbita-kep {
     0% { transform: translate(-50%, -50%) rotate(0deg) !important; }
     100% { transform: translate(-50%, -50%) rotate(360deg) !important; }
@@ -488,6 +488,7 @@
                 <!-- SCHERMO TELEMETRIA -->
                 <div class="w-full lg:w-1/2 flex flex-col justify-center">
                     <h3 class="text-yellow-500 font-gta text-2xl mb-4 border-b border-slate-700 pb-2">TELEMETRIA PLANETARIA</h3>
+                    <p id="schermo-fase4" class="text-green-400 text-sm font-bold leading-relaxed mb-4 min-h-[40px]"></p>
                     <div id="kep-telemetria" class="bg-slate-900 p-4 border border-slate-600 rounded min-h-[160px] font-mono text-sm text-slate-300 flex flex-col justify-center items-center text-center">
                         <span class="text-slate-500 animate-pulse">In attesa di selezione bersaglio...<br><br>Clicca su un pianeta nel radar per scaricare i dati.</span>
                     </div>
