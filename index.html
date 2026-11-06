@@ -87,10 +87,10 @@
         .kep-frost { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px dashed #06b6d4; border-radius: 50%; pointer-events: none; box-shadow: 0 0 10px #06b6d4 inset, 0 0 10px #06b6d4; z-index: 10; }
         .kep-planet-btn { position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer; z-index: 20; transition: transform 0.2s, box-shadow 0.2s; pointer-events: auto; }
         .kep-planet-btn:hover { transform: translate(-50%, -50%) scale(1.5); box-shadow: 0 0 12px #fff; }
-       .kep-planet-wrapper { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; animation: orbita-kep var(--d) linear infinite; }
+       .kep-planet-wrapper { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; animation: orbita-kep var(--d) linear infinite !important; }
 @keyframes orbita-kep {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
+    0% { transform: translate(-50%, -50%) rotate(0deg) !important; }
+    100% { transform: translate(-50%, -50%) rotate(360deg) !important; }
 }
         /* ===== ACCESSIBILITÀ ===== */
         body.dyslexia-font, body.dyslexia-font * { font-family: 'Lexend', system-ui, sans-serif !important; letter-spacing: 0.05em !important; line-height: 1.6 !important; }
