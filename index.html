@@ -81,7 +81,13 @@
         .stamp-approva:hover, .stamp-approva.active { background: #16a34a; color: white; transform: rotate(-3deg); }
         .stamp-boccia { color: #dc2626; border-color: #dc2626; }
         .stamp-boccia:hover, .stamp-boccia.active { background: #dc2626; color: white; transform: rotate(3deg); }
-
+/* ===== FASE 4: ARENA OLOGRAFICA ===== */
+        .kep-arena { position: relative; width: 100%; max-width: 420px; aspect-ratio: 1 / 1; background: radial-gradient(circle, #020617 0%, #000000 100%); border: 2px solid #334155; border-radius: 50%; overflow: hidden; margin: 0 auto; box-shadow: 0 0 20px rgba(51,65,85,0.5); }
+        .kep-orbit { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; pointer-events: none; }
+        .kep-frost { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px dashed #06b6d4; border-radius: 50%; pointer-events: none; box-shadow: 0 0 10px #06b6d4 inset, 0 0 10px #06b6d4; z-index: 10; }
+        .kep-planet-btn { position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer; z-index: 20; transition: transform 0.2s, box-shadow 0.2s; pointer-events: auto; }
+        .kep-planet-btn:hover { transform: translate(-50%, -50%) scale(1.5); box-shadow: 0 0 12px #fff; }
+        .kep-planet-wrapper { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; }
         /* ===== ACCESSIBILITÀ ===== */
         body.dyslexia-font, body.dyslexia-font * { font-family: 'Lexend', system-ui, sans-serif !important; letter-spacing: 0.05em !important; line-height: 1.6 !important; }
         body.high-contrast { background: #000 !important; }
@@ -413,20 +419,77 @@
                 <button id="btn-termo" type="button" onclick="validaTermodinamica()" class="mt-4 btn-gta w-full py-2">ESEGUI COLLAUDO SISTEMA</button>
             </div>
         </div>
-    </main>
-
-    <!-- ============ FASE 4: PAPER ACCADEMICO ============ -->
+    </main><!-- ============ FASE 4: PAPER ACCADEMICO E MAPPA ANIMATA ============ -->
     <main id="fase-4" class="hidden w-full max-w-6xl panel-gta panel-paper p-4 md:p-6 mb-8 z-10">
         <div class="border-b-4 border-slate-900 pb-4 mb-6">
             <h2 class="text-3xl md:text-5xl font-serif font-bold text-center uppercase tracking-widest">Relazione Ufficiale - Sistema KEP-45</h2>
             <p class="text-center text-sm md:text-base font-bold text-slate-600 mb-4">Dipartimento di Astrofisica - Osservatorio ALMA</p>
 
-            <div class="flex flex-col md:flex-row gap-4 items-center bg-white p-4 border-2 border-slate-400 shadow-inner">
-               <img src="mappa.jpg" alt="Sistema KEP-45" class="w-full md:w-1/3 border-2 border-slate-800 object-cover aspect-video">
-                <div class="text-sm md:text-base font-serif leading-relaxed text-justify">
-                    <p class="mb-2"><strong>Oggetto:</strong> Analisi orbitale e termodinamica del sistema esoplanetario KEP-45.</p>
-                    <p class="mb-2"><strong>Contesto:</strong> Sulla base delle rilevazioni radar e delle dinamiche orbitali calibrate nelle fasi precedenti, è richiesta la stesura del referto finale.</p>
-                    <p><strong>Direttiva:</strong> Valida le seguenti ipotesi scientifiche. Apponi il timbro di convalida solo sulle tesi corrette. Qualsiasi errore comporterà la reiezione del documento e la necessità di rivedere i dati grezzi.</p>
+            <!-- SEZIONE OLOGRAFICA (Sostituisce l'immagine) -->
+            <div class="flex flex-col lg:flex-row gap-6 items-stretch bg-slate-950 p-4 border-2 border-slate-700 rounded-lg shadow-inner mb-6">
+                
+                <!-- MAPPA ANIMATA -->
+                <div class="w-full lg:w-1/2 flex flex-col items-center border-r-0 lg:border-r-2 border-slate-700 pr-0 lg:pr-4">
+                    <p class="text-xs text-yellow-400 font-mono mb-3 uppercase tracking-wider text-center animate-pulse">📡 TRACCIAMENTO ORBITALE ATTIVO: Clicca sui pianeti</p>
+                    
+                    <div class="kep-arena">
+                        <!-- Stella -->
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-gradient-to-r from-yellow-300 to-orange-600 rounded-full shadow-[0_0_20px_#ea580c] z-30"></div>
+                        
+                        <!-- Orbite decorative fisse -->
+                        <div class="kep-orbit" style="width: 15%; height: 15%;"></div>
+                        <div class="kep-orbit" style="width: 28%; height: 28%;"></div>
+                        <div class="kep-orbit" style="width: 42%; height: 42%;"></div>
+                        <div class="kep-orbit" style="width: 55%; height: 55%;"></div>
+                        <div class="kep-frost" style="width: 65%; height: 65%;"></div> <!-- Frost Line 4 UA -->
+                        <div class="kep-orbit" style="width: 80%; height: 80%;"></div>
+                        <div class="kep-orbit" style="width: 95%; height: 95%;"></div>
+
+                        <span class="absolute top-[12%] left-1/2 text-[9px] text-cyan-400 font-mono ml-2">FROST LINE (4 UA)</span>
+
+                        <!-- Pianeti animati (Le grandezze in % si allineano alle orbite) -->
+                        
+                        <!-- HP-1 (0.5 UA) -->
+                        <div class="kep-planet-wrapper giro" style="width: 15%; height: 15%; --d: 3s;">
+                            <div class="kep-planet-btn w-3 h-3 p-roccia" onclick="mostraDatiKep('HP-1', '0.5 UA', 'Roccioso', '5.5', 'Nessuna anomalia termica. Posizione standard.')"></div>
+                        </div>
+
+                        <!-- HP-2 (1.2 UA) - ERRORE GASSOSO -->
+                        <div class="kep-planet-wrapper giro" style="width: 28%; height: 28%; --d: 5s;">
+                            <div class="kep-planet-btn w-6 h-6 p-gas" onclick="mostraDatiKep('HP-2', '1.2 UA', 'Gigante Gassoso', '1.2', 'ANOMALIA: Gas rilevati all\'interno della Frost Line. Rischio evaporazione elevato.')"></div>
+                        </div>
+
+                        <!-- HP-3 (2.2 UA) -->
+                        <div class="kep-planet-wrapper giro" style="width: 42%; height: 42%; --d: 8s;">
+                            <div class="kep-planet-btn w-4 h-4 p-roccia bg-amber-700" onclick="mostraDatiKep('HP-3', '2.2 UA', 'Roccioso', '4.8', 'Nessuna anomalia termica. Posizione standard.')"></div>
+                        </div>
+
+                        <!-- HP-4 (3.2 UA) - ERRORE GHIACCIO -->
+                        <div class="kep-planet-wrapper giro" style="width: 55%; height: 55%; --d: 12s;">
+                            <div class="kep-planet-btn w-4 h-4 p-ice" onclick="mostraDatiKep('HP-4', '3.2 UA', 'Ghiacciato', '1.6', 'ANOMALIA: Ghiaccio rilevato prima della Frost Line. Incompatibilità termodinamica.')"></div>
+                        </div>
+
+                        <!-- HP-5 (5.8 UA) -->
+                        <div class="kep-planet-wrapper giro" style="width: 80%; height: 80%; --d: 18s;">
+                            <div class="kep-planet-btn w-7 h-7 p-misto" style="box-shadow: 0 0 0 4px rgba(255,255,255,0.2)" onclick="mostraDatiKep('HP-5', '5.8 UA', 'Gigante Gassoso', '0.7', 'Nessuna anomalia. Formazione coerente oltre la linea del gelo.')"></div>
+                        </div>
+
+                        <!-- HP-6 (8.5 UA) - ERRORE ROCCIOSO -->
+                        <div class="kep-planet-wrapper giro" style="width: 95%; height: 95%; --d: 25s;">
+                            <div class="kep-planet-btn w-3 h-3 p-roccia bg-stone-500" onclick="mostraDatiKep('HP-6', '8.5 UA', 'Roccioso', '5.2', 'ANOMALIA: Alta densità rocciosa rilevata all\'estrema periferia del sistema. I gas dovrebbero dominare.')"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SCHERMO TELEMETRIA -->
+                <div class="w-full lg:w-1/2 flex flex-col justify-center">
+                    <h3 class="text-yellow-500 font-gta text-2xl mb-4 border-b border-slate-700 pb-2">TELEMETRIA PLANETARIA</h3>
+                    <div id="kep-telemetria" class="bg-slate-900 p-4 border border-slate-600 rounded min-h-[160px] font-mono text-sm text-slate-300 flex flex-col justify-center items-center text-center">
+                        <span class="text-slate-500 animate-pulse">In attesa di selezione bersaglio...<br><br>Clicca su un pianeta nel radar per scaricare i dati.</span>
+                    </div>
+                    <div class="mt-4 text-xs md:text-sm font-serif leading-relaxed text-justify text-slate-400">
+                        <p><strong>Direttiva:</strong> Valida le seguenti ipotesi scientifiche confrontando le Tesi con la telemetria della mappa. Apponi il timbro di convalida solo sulle tesi fisicamente corrette.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -519,15 +582,15 @@ const tokenClasse = parametriUrl.get('token') || 'demo_keynes';
         p4: { nome: 'Delta', gas: 80, css: 'w-7 h-7 p-ice' }
     };
 
-    const tesi = [
-        { id: 1, testo: "L'esopianeta A, distante 0.4 UA dalla stella, è un gigante gassoso composto per il 90% da idrogeno. Questa struttura a bassa densità è in perfetto equilibrio termico.", corretta: "boccia" },
-        { id: 2, testo: "Il pianeta B mostra fasi visive complete (da piena a falce). Questo fenomeno ottico conferma un'architettura eliocentrica.", corretta: "approva" },
-        { id: 3, testo: "La densità media dei pianeti aumenta in modo lineare man mano che ci si allontana dalla stella centrale.", corretta: "boccia" },
-        { id: 4, testo: "Il pianeta D compie un moto retrogrado accelerando fisicamente e invertendo la marcia tramite propulsori.", corretta: "boccia" },
-        { id: 5, testo: "L'esopianeta C si trova a 9 UA di distanza, oltre la Linea del Gelo, trattenendo massicce quantità di elementi volatili.", corretta: "approva" },
-        { id: 6, testo: "Il calore stellare ha impedito ai materiali leggeri (gas e ghiacci) di solidificarsi nelle orbite interne, lasciando roccia e metalli.", corretta: "approva" },
-        { id: 7, testo: "Secondo il modello di Brahe, vedremmo tutti i pianeti ruotare attorno alla Stella centrale, e la Stella attorno all'osservatore.", corretta: "approva" },
-        { id: 8, testo: "Nel modello Geocentrico, il pianeta più interno situato tra noi e la stella apparirebbe perennemente pieno e illuminato.", corretta: "boccia" }
+   const tesi = [
+        { id: 1, testo: "L'orbita di HP-1 (0.5 UA, Roccioso, densità 5.5) è pienamente coerente con i modelli teorici di formazione vicina a una stella ospite.", corretta: "approva" },
+        { id: 2, testo: "La presenza del gigante gassoso HP-2 a sole 1.2 UA dalla stella KEP-45 è del tutto naturale e rispetta i normali gradienti termici della nebulosa.", corretta: "boccia" },
+        { id: 3, testo: "Il pianeta HP-3 (2.2 UA, Roccioso) si trova correttamente all'interno della Frost Line (fissata a 4 UA), dove le temperature consentono la condensazione solo di silicati e metalli.", corretta: "approva" },
+        { id: 4, testo: "HP-4, classificato come pianeta di ghiaccio a 3.2 UA, si trova in una posizione termodinamica corretta, poiché la linea del gelo permette ai volatili di ghiacciare anche prima dei 4 UA.", corretta: "boccia" },
+        { id: 5, testo: "La Frost Line a 4 UA rappresenta il confine termico ideale, oltre il quale i gas possono condensare favorendo la nascita di giganti come HP-5 (5.8 UA).", corretta: "approva" },
+        { id: 6, testo: "La presenza di HP-6 (8.5 UA), un piccolo pianeta roccioso denso all'estrema periferia del sistema, rispecchia perfettamente la teoria della nebulosa solare.", corretta: "boccia" },
+        { id: 7, testo: "I dati generali confermano una transizione logica in cui i pianeti interni (HP-1 e HP-3) sono rocciosi e densi, mentre quelli oltre la Frost Line (HP-5) sono giganti gassosi.", corretta: "approva" },
+        { id: 8, testo: "L'intero sistema planetario KEP-45 non presenta alcuna anomalia o errore di posizionamento rispetto alle leggi della termodinamica.", corretta: "boccia" }
     ];
 
     const testoDirettrice = `"Benvenuti ad ALMA, nel cuore del deserto di Atacama. Sapete perché vi abbiamo fatto arrivare fin quassù, a cinquemila metri di quota?\n\nPerché i supercomputer non bastano più. Stiamo captando una mole di dati senza precedenti da nuovi sistemi stellari e ci servono menti fresche e intuizioni umane per decifrarli. Siete qui per darci una mano.\n\nMa prima di affidarvi gli strumenti di osservazione più sensibili e complessi del pianeta, voglio essere sicura che abbiate basi solide. Per secoli, persino le menti più brillanti si sono lasciate ingannare dalle apparenze: Tolomeo si era illuso che la Terra fosse immobile al centro di tutto. È dovuto arrivare Copernico per rimettere il Sole al suo posto, spiegandoci finalmente l'illusione ottica di quei pianeti che sembrano fare 'marcia indietro' nel cielo. Per non parlare di Brahe, che elaborò un complesso modello ibrido pur di non abbandonare le vecchie certezze...\n\nOltre alla geometria, ricordatevi la regola d'oro: quando nasce un sistema planetario, è la stella centrale a dettare legge. Sprigionando un'energia immensa, la stella agisce come un gigantesco filtro cosmico. Il suo calore spazza via i materiali leggeri, selezionando e lasciando sopravvivere nelle orbite interne solo le rocce più dense e pesanti. Per permettere ai gas di addensarsi e formare pianeti giganti, dovete allontanarvi dalla sua furia, nel buio e nel freddo, oltre quella barriera invisibile che noi chiamiamo la 'Linea del Gelo'.\n\nSe vi sentite all'altezza, il vostro primo vero incarico vi aspetta nella Sala Radar. Dimostratemi di che pasta siete fatti."`;
@@ -987,6 +1050,30 @@ scriviTestoTerminale("schermo-fase4", testoVocale4, 45);
         $(`stamp-${id}-${scelta}`).classList.add('active');
     }
 
+        function mostraDatiKep(nome, orbita, tipo, densita, note) {
+        // Colore dinamico in base al tipo di pianeta
+        let colorClass = "text-yellow-400";
+        if (tipo.includes('Roccioso')) colorClass = "text-amber-500";
+        if (tipo.includes('Gassoso')) colorClass = "text-blue-400";
+        if (tipo.includes('Ghiacciato')) colorClass = "text-cyan-300";
+
+        let allertaHtml = note.includes('ANOMALIA') 
+            ? `<div class="mt-4 p-2 bg-red-900/50 border-l-4 border-red-500 text-red-300 text-xs font-bold uppercase text-left">${note}</div>`
+            : `<div class="mt-4 p-2 bg-green-900/50 border-l-4 border-green-500 text-green-300 text-xs font-bold uppercase text-left">${note}</div>`;
+
+        $('kep-telemetria').innerHTML = `
+            <div class="w-full flex justify-between items-center border-b border-slate-700 pb-2 mb-3">
+                <h4 class="text-2xl font-black ${colorClass} tracking-widest">${nome}</h4>
+                <span class="bg-slate-800 px-2 py-1 rounded text-xs">TARGET AGGANCIATO</span>
+            </div>
+            <div class="grid grid-cols-2 gap-4 w-full text-left">
+                <div><span class="text-slate-500 text-xs block">DISTANZA (ORBITA)</span><span class="text-lg text-white">${orbita}</span></div>
+                <div><span class="text-slate-500 text-xs block">CLASSIFICAZIONE</span><span class="text-lg text-white">${tipo}</span></div>
+                <div class="col-span-2"><span class="text-slate-500 text-xs block">DENSITÀ MEDIA</span><span class="text-lg text-white">${densita} g/cm³</span></div>
+            </div>
+            ${allertaHtml}
+        `;
+    }
     /* ----- Anello di recupero: dal paper respinto alle fasi precedenti ----- */
     function aggiornaPulsantiRipasso() {
         document.querySelectorAll('.btn-torna-paper').forEach(b => b.classList.toggle('hidden', !tornaAlPaper));
