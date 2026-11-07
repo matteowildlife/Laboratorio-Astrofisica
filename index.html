@@ -1099,7 +1099,9 @@ scriviTestoTerminale("schermo-fase3", testoVocale3, 45);
             aggiornaPulsantiRipasso();
             renderPaperTesi();
             mostra('fase-4');
-            avvisoDirettriceFase4();
+           setTimeout(() => {
+    avvisoDirettriceFase4();
+}, 8500);
           let testoVocale4 = "Ottimo lavoro. Sei arrivato all'ultima fase di un lavoro scientifico, abbiamo raccolto i campioni e analizzato i modelli, ora bisogna convalidare i dati sul terminale."; // NOTA: se il tuo testo originale era più lungo, incollalo tutto qui tra le virgolette!
 
 if (!inRipasso) {
