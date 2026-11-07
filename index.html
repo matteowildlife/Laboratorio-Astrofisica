@@ -596,6 +596,7 @@ const tokenClasse = parametriUrl.get('token') || 'demo_keynes';
         { id: 7, testo: "I dati generali confermano una transizione logica in cui i pianeti interni (HP-1 e HP-3) sono rocciosi e densi, mentre quelli oltre la Frost Line (HP-5) sono giganti gassosi.", corretta: "approva" },
         { id: 8, testo: "L'intero sistema planetario KEP-45 non presenta alcuna anomalia o errore di posizionamento rispetto alle leggi della termodinamica.", corretta: "boccia" }
     ];
+        tesi.sort(() => Math.random() - 0.5);
 
     const testoDirettrice = `"Benvenuti ad ALMA, nel cuore del deserto di Atacama. Sapete perché vi abbiamo fatto arrivare fin quassù, a cinquemila metri di quota?\n\nPerché i supercomputer non bastano più. Stiamo captando una mole di dati senza precedenti da nuovi sistemi stellari e ci servono menti fresche e intuizioni umane per decifrarli. Siete qui per darci una mano.\n\nMa prima di affidarvi gli strumenti di osservazione più sensibili e complessi del pianeta, voglio essere sicura che abbiate basi solide. Per secoli, persino le menti più brillanti si sono lasciate ingannare dalle apparenze: Tolomeo si era illuso che la Terra fosse immobile al centro di tutto. È dovuto arrivare Copernico per rimettere il Sole al suo posto, spiegandoci finalmente l'illusione ottica di quei pianeti che sembrano fare 'marcia indietro' nel cielo. Per non parlare di Brahe, che elaborò un complesso modello ibrido pur di non abbandonare le vecchie certezze...\n\nOltre alla geometria, ricordatevi la regola d'oro: quando nasce un sistema planetario, è la stella centrale a dettare legge. Sprigionando un'energia immensa, la stella agisce come un gigantesco filtro cosmico. Il suo calore spazza via i materiali leggeri, selezionando e lasciando sopravvivere nelle orbite interne solo le rocce più dense e pesanti. Per permettere ai gas di addensarsi e formare pianeti giganti, dovete allontanarvi dalla sua furia, nel buio e nel freddo, oltre quella barriera invisibile che noi chiamiamo la 'Linea del Gelo'.\n\nSe vi sentite all'altezza, il vostro primo vero incarico vi aspetta nella Sala Radar. Dimostratemi di che pasta siete fatti."`;
 
@@ -908,7 +909,6 @@ function scriviTestoTerminale(id, testo, velocita, audioId) {
     }
 function mescolaRadar() {
     const g = document.getElementById('griglia-radar');
-    mescolaRadar();
     if (!g) return;
     const box = Array.from(g.children);
     for (let i = box.length - 1; i > 0; i--) { 
@@ -1292,7 +1292,7 @@ mostraSchermataFinale(sbagliate);
     function init() {
         $('display-punteggio').textContent = punteggio;
         creaBadge();
-
+mescolaRadar();
         // Menu dei modelli (radar)
         const opzioni = '<option value="">-- Modello --</option>' + MODELLI.map(m => `<option value="${m}">${m}</option>`).join('');
         document.querySelectorAll('.sel-modello').forEach(sel => { sel.innerHTML = opzioni; });
